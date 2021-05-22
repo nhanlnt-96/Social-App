@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getAllPosts } from '../../network/services/post';
 
 const PostBorder = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [isBusy, setIsBusy] = useState(false);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/posts').then((response) => {
-      setAllPosts(response.data);
-      setIsBusy(true);
-    }).catch((err) => {
-      console.log(err)
-    }).finally(() => {
-      setIsBusy(false);
-    })
+    const getPost = async () => {
+      await getAllPosts().then((response) => {
+        setAllPosts(response.data);
+        setIsBusy(true);
+      }).catch((err) => {
+        console.log(err);
+      }).finally(() => {
+        setIsBusy(false);
+      })
+    }
+    getPost();
   }, []);
 
   return (
