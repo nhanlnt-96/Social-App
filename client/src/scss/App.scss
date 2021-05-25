@@ -1,14 +1,39 @@
-@import url('http://fonts.cdnfonts.com/css/gotham-pro');
-
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  
+
 }
 
-.App {
-  width: 100vw;
-  height: 100vh;
+.site-layout-content {
+  min-height: 280px;
+  padding: 24px;
+  background: #fff;
 }
+
+#components-layout-demo-top .logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ant-row-rtl #components-layout-demo-top .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+
+.header {
+  display: inline-flex;
+  flex-wrap: nowrap;
+}
+
+.feed-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 

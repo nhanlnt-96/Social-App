@@ -1,5 +1,7 @@
-@import '../../scss/abstracts/mixins';
+.logo {
+  flex: 2;
 
-.header {
-  @include flex(row, space-around, center);
+  h1 {
+    color: white;
+  }
 }

@@ -1,8 +1,8 @@
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+.logo {
+  flex: 2;
+}
+.logo h1 {
+  color: white;
 }
 
 /*# sourceMappingURL=navigation.css.map */
