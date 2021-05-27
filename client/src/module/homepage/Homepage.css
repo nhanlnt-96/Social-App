@@ -1,0 +1,21 @@
+.homepage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+}
+.homepage .create-post {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.homepage .create-post .ant-form-item:first-child {
+  width: 500px;
+}
+.homepage .news-feed {
+  width: 100%;
+}
+
+/*# sourceMappingURL=Homepage.css.map */

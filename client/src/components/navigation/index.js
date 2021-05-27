@@ -1,31 +1,34 @@
 import React from 'react';
 import { Menu } from 'antd';
-
-//import icon
-import { DesktopOutlined, PlayCircleOutlined, UserOutlined } from '@ant-design/icons';
-
+import { Layout } from 'antd';
 import './navigation.scss';
+import { MenuList } from "../../configs/navigation.config";
+import { Link } from "react-router-dom";
 
-export const Navigation = () => {
+const {Header} = Layout;
+
+
+const Navigation = () => {
   return (
-    <>
+    <Header style={{position: 'fixed', zIndex: 1, width: '100%'}} className="header">
       <div className="logo">
         <h1>SOCIAL</h1>
       </div>
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-        <Menu.Item key="1">
-          <DesktopOutlined/>
-          NEWS FEED
-        </Menu.Item>
-        <Menu.Item key="2">
-          <PlayCircleOutlined/>
-          SHORT VIDEOS
-        </Menu.Item>
-        <Menu.Item key="3">
-          <UserOutlined/>
-          USERNAME
-        </Menu.Item>
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['news-feed']}>
+        {
+          MenuList.map((val) => {
+            const {id, label, icon, url} = val;
+            return (
+              <Menu.Item key={id}>
+                {icon}
+                <Link to={url}>{label}</Link>
+              </Menu.Item>
+            )
+          })
+        }
       </Menu>
-    </>
+    </Header>
   )
 }
+
+export default Navigation;

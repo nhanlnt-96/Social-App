@@ -1,35 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Avatar, Skeleton } from 'antd';
+import React from 'react';
+import { Card, Avatar } from 'antd';
 import {
   CommentOutlined,
   DeleteOutlined,
   LikeOutlined
 } from '@ant-design/icons';
-import { getAllPosts } from '../../network/services/post';
 
 import './FeedCard.scss';
 
 const {Meta} = Card;
 
-export const FeedCard = () => {
-  const [allPosts, setAllPosts] = useState([]);
-  const [isBusy, setIsBusy] = useState(true);
-
-  useEffect(() => {
-    const getPost = async () => {
-      await getAllPosts().then((response) => {
-        setAllPosts(response.data);
-      }).catch((error) => {
-        console.log(error)
-      }).finally(() => {
-        setIsBusy(false);
-      })
-    }
-    getPost();
-  }, []);
-
+const FeedCard = ({allPosts}) => {
   return (
-    <>
+    <div className='feed-container' style={{padding: 24, minHeight: 380}}>
       {
         allPosts.map((val, index) => {
           return (
@@ -43,23 +26,23 @@ export const FeedCard = () => {
                 />
               }
               actions={[
-                <LikeOutlined key="like"/>,
-                <CommentOutlined key="comment"/>,
-                <DeleteOutlined key="delete"/>,
+                <LikeOutlined key="like" />,
+                <CommentOutlined key="comment" />,
+                <DeleteOutlined key="delete" />,
               ]}
-              loading={isBusy}
             >
-              <Skeleton loading={isBusy} avatar active>
-                <Meta
-                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>}
-                  title={val.username}
-                  description={val.postText}
-                />
-              </Skeleton>
+              <Meta
+                avatar={<Avatar
+                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                title={val.username}
+                description={val.postText}
+              />
             </Card>
           )
         })
       }
-    </>
+    </div>
   )
-}
+};
+
+export default FeedCard;

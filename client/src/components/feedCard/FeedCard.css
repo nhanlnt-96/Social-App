@@ -2,4 +2,11 @@
   margin-bottom: 15px !important;
 }
 
+.feed-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 /*# sourceMappingURL=FeedCard.css.map */

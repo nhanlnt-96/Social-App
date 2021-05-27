@@ -1,7 +1,35 @@
+#components-layout-demo-top .logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ant-row-rtl #components-layout-demo-top .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+
+.ant-layout-header {
+  height: 10vh;
+}
+
+.header {
+  display: inline-flex;
+  flex-wrap: nowrap;
+}
+
 .logo {
   flex: 2;
 
   h1 {
+    line-height: 10vh;
+    margin-bottom: 0px;
     color: white;
   }
+}
+
+.ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu {
+  height: 100%;
 }
