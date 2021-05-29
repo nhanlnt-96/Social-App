@@ -1,8 +1,13 @@
-import { LOAD_POST_FAIL, LOAD_POST_START, LOAD_POST_SUCCESS } from "./actionTypes";
+import {
+  LOAD_POST_FAIL,
+  LOAD_POST_START,
+  LOAD_POST_SUCCESS
+} from "./actionTypes";
 
 const initialState = {
   loading: false,
   allPosts: [],
+  postDetail: {},
   error: null
 }
 

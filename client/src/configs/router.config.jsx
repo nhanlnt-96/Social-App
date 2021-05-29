@@ -9,7 +9,7 @@ export const routes = [
     module: <Homepage />
   },
   {
-    path: '/post/:id',
+    path: '/posts/:id',
     isExact: true,
     module: <PostDetail />
   },

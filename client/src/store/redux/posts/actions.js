@@ -1,4 +1,4 @@
-import { LOAD_POST_FAIL, LOAD_POST_START, LOAD_POST_SUCCESS } from "./actionTypes";
+import { CREATE_POST_REQUEST, LOAD_POST_FAIL, LOAD_POST_START, LOAD_POST_SUCCESS } from "./actionTypes";
 
 export const loadPostStart = () => {
   return {
@@ -17,5 +17,12 @@ export const loadPostFail = (error) => {
   return {
     type: LOAD_POST_FAIL,
     payload: error
+  }
+}
+
+export const createPostRequest = (postContent) => {
+  return {
+    type: CREATE_POST_REQUEST,
+    payload: postContent
   }
 }

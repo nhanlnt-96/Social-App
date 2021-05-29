@@ -7,11 +7,11 @@ import createSagaMiddleWare from 'redux-saga';
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./store/rootReducer";
-import { onLoadPost } from "./store/sagas/hanlerSaga";
+import rootSaga from "./store/sagas/rootSaga";
 
 const sagaMiddleWare = createSagaMiddleWare();
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleWare));
-sagaMiddleWare.run(onLoadPost);
+sagaMiddleWare.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,6 +1,16 @@
 import { call, put } from 'redux-saga/effects';
-import { getAllPosts } from "../../network/services/post";
+import { createPost, getAllPosts } from "../../network/services/post";
 import { loadPostFail, loadPostSuccess } from "../redux/posts/actions";
+
+export function* onCreatePostRequest(action) {
+  try {
+    yield call(createPost, action.payload)
+    const response = yield call(getAllPosts);
+    yield put(loadPostSuccess(response.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export function* onLoadPostStartAsync() {
   try {
@@ -10,3 +20,4 @@ export function* onLoadPostStartAsync() {
     yield put(loadPostFail(error));
   }
 }
+

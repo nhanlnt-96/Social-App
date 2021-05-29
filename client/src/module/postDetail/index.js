@@ -1,20 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import { loadPostStart } from "../../store/redux/posts/actions";
+
+import { getPostById } from "../../network/services/post";
+import FeedCardPostDetail from "../../components/feedCardPostDetail";
+
+import './PostDetail.scss';
 
 const PostDetail = () => {
-  const dispatch = useDispatch();
-  const state = useSelector(state => ({...state.allPostsData}));
+  const [postData, setPostData] = useState([]);
+  const [isBusy, setIsBusy] = useState(true);
+  let {id} = useParams();
 
   useEffect(() => {
-    dispatch(loadPostStart());
-  }, [dispatch]);
+    const getPostDataById = async () => {
+      await getPostById(id).then((response) => {
+        setPostData(response.data);
+      }).catch((error) => {
+        console.log(error);
+      }).finally(() => {
+        setIsBusy(false)
+      })
+    }
+    getPostDataById();
+  }, [id]);
 
-  let {id} = useParams();
   return (
-    <div>
-      <h1>{id}</h1>
+    <div className='post-container'>
+      <div className='post-sider'>
+        <FeedCardPostDetail postData={postData} />
+      </div>
+      <div className='post-content'>
+
+      </div>
     </div>
   )
 }

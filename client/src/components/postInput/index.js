@@ -1,28 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { createPost } from "../../network/services/post";
+import { useDispatch } from "react-redux";
+import { createPostRequest } from "../../store/redux/posts/actions";
 
 const {TextArea} = Input;
 
 const PostInput = () => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [, forceUpdate] = useState({});
-  const [isBusy, setIsBusy] = useState(false);
 
   useEffect(() => {
     forceUpdate({});
   }, []);
 
   const onFinish = async (values) => {
-    await createPost(values).then(() => {
-      setIsBusy(true);
-    }).catch((error) => {
-      console.log(error);
-    }).finally(() => {
-      setIsBusy(false);
-      console.log('posted');
-    })
+    dispatch(createPostRequest(values))
   };
 
   return (
@@ -66,7 +60,6 @@ const PostInput = () => {
           </Button>
         )}
       </Form.Item>
-      {isBusy && console.log('loading...')}
     </Form>
   );
 };
