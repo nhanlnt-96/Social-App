@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Card, Avatar } from 'antd';
 import {
   CommentOutlined,
@@ -11,6 +12,8 @@ import './FeedCard.scss';
 const {Meta} = Card;
 
 const FeedCard = ({allPosts}) => {
+  let history = useHistory();
+
   return (
     <div className='feed-container' style={{padding: 24, minHeight: 380}}>
       {
@@ -30,19 +33,22 @@ const FeedCard = ({allPosts}) => {
                 <CommentOutlined key="comment" />,
                 <DeleteOutlined key="delete" />,
               ]}
-            >
-              <Meta
+              onClick={() => {
+                history.push(`/post/${val.id}`)
+              }}
+                >
+                <Meta
                 avatar={<Avatar
-                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                 title={val.username}
                 description={val.postText}
-              />
-            </Card>
-          )
-        })
-      }
-    </div>
-  )
-};
+                />
+                </Card>
+                )
+              })
+        }
+        </div>
+        )
+      };
 
-export default FeedCard;
+      export default FeedCard;

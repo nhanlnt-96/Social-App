@@ -1,15 +1,33 @@
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
-  //header
-  .header {
-    .logo {
-      flex: none;
+  //post input
+  .create-post {
+    width: 100% !important;
+
+    .ant-form {
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .ant-form-item {
+        margin-right: 0 !important;
+
+        &:first-child, &:nth-child(2) {
+          width: 100% !important;
+        }
+
+        &:nth-child(2) {
+          margin: 10px 0 !important;
+        }
+      }
     }
+
   }
 
   //content
   .content {
-    padding: 0px;
+    padding: 0 10px !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,7 +36,13 @@
       padding: 24px 0 !important;
     }
   }
+
+  //footer
+  .ant-layout-footer {
+    padding: 24px 0 !important;
+  }
 }
+
 
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
   //header
@@ -29,11 +53,64 @@
     }
   }
 
+  //post input
+  .create-post {
+    width: 100% !important;
+
+    .ant-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .ant-form-item {
+        margin-right: 0 !important;
+
+        &:first-child, &:nth-child(2) {
+          width: 100% !important;
+        }
+
+        &:nth-child(2) {
+          margin: 10px 0 !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
   //content
-  .content {
-    padding: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .ant-layout-content {
+    margin-top: 64px !important;
+  }
+
+  //post input
+  .create-post {
+    width: 95% !important;
+
+    .ant-form-item {
+      &:first-child {
+        width: 300px !important;
+      }
+    }
+  }
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) {
+  //content
+  .ant-layout-content {
+    margin-top: 64px !important;
+  }
+
+  //post input
+  .create-post {
+    width: 95% !important;
+
+    .ant-form-item {
+      &:first-child {
+        width: 400px !important;
+      }
+    }
   }
 }

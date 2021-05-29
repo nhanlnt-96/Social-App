@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
 import { routes } from "../../configs/router.config";
-import './LayoutMoule.scss'
 
 //import layout antd
 import { Layout } from 'antd';

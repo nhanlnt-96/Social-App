@@ -8,5 +8,8 @@
   align-items: center;
   flex-wrap: wrap;
 }
+.feed-container .ant-card-body, .feed-container .ant-card-cover {
+  cursor: pointer;
+}
 
 /*# sourceMappingURL=FeedCard.css.map */

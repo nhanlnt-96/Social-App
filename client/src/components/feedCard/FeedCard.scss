@@ -7,4 +7,8 @@
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+
+  .ant-card-body, .ant-card-cover {
+    cursor: pointer;
+  }
 }

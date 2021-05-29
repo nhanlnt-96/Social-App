@@ -4,4 +4,9 @@
   box-sizing: border-box;
 }
 
+.layout {
+  width: 100vw;
+  min-height: 100vh !important;
+}
+
 /*# sourceMappingURL=App.css.map */

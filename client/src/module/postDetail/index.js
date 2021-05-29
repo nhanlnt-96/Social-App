@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { loadPostStart } from "../../store/redux/posts/actions";
 
 const PostDetail = () => {
+  const dispatch = useDispatch();
+  const state = useSelector(state => ({...state.allPostsData}));
+
+  useEffect(() => {
+    dispatch(loadPostStart());
+  }, [dispatch]);
+
+  let {id} = useParams();
   return (
     <div>
-      <h1>post detail</h1>
+      <h1>{id}</h1>
     </div>
   )
 }

@@ -11,10 +11,6 @@
   margin: 16px 0 16px 24px;
 }
 
-.ant-layout-header {
-  height: 10vh;
-}
-
 .header {
   display: inline-flex;
   flex-wrap: nowrap;
@@ -24,7 +20,6 @@
   flex: 2;
 
   h1 {
-    line-height: 10vh;
     margin-bottom: 0px;
     color: white;
   }
