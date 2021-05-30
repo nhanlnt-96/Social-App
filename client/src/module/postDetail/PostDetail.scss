@@ -4,18 +4,15 @@
 
 .post {
   &-container {
-    margin-top: 24px;
+    width: 100%;
+    //margin-top: 24px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
-  &-sider {
-    flex: 1;
-  }
-
-  &-content {
-    flex: 2;
+  &-header, &-content {
+    width: 50%;
   }
 }
