@@ -10,9 +10,8 @@ router.post('/', async (req, res) => {
 });
 
 //get comments
-router.get('/:postId', async (req, res) => {
-  const postId = req.params.postId;
-  const comments = await Comments.findAll({where: {PostId: postId}});
+router.get('/', async (req, res) => {
+  const comments = await Comments.findAll();
   res.json(comments);
 })
 
