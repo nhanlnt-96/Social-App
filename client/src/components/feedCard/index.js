@@ -7,6 +7,7 @@ import {
   LikeOutlined
 } from '@ant-design/icons';
 import moment from 'moment';
+import AvatarImg from '../../assets/8c4ac8c19d21687f3130.jpeg';
 
 import './FeedCard.scss';
 
@@ -40,7 +41,7 @@ const FeedCard = ({allPosts}) => {
               >
                 <Meta
                   avatar={<Avatar
-                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                    src={AvatarImg} />}
                   title={`${val.username} (${moment(val.createdAt).format('DD/MM/YYYY - HH:mm')})`}
                   description={val.postText}
                 />

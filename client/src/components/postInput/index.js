@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { useDispatch } from "react-redux";
-import { createPostRequest } from "../../store/redux/posts/actions";
+import { useDispatch } from 'react-redux';
+import { createPostRequest } from '../../store/redux/posts/actions';
 
 const {TextArea} = Input;
 
 const PostInput = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const [, forceUpdate] = useState({});
-
-  useEffect(() => {
-    forceUpdate({});
-  }, []);
 
   const onFinish = async (values) => {
     dispatch(createPostRequest(values))

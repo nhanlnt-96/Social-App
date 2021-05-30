@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getPostById } from '../../network/services/post';
+import React from 'react';
 import FeedCardPostDetail from '../../components/feedCardPostDetail';
 import CommentList from '../../components/comment';
-
-import './PostDetail.scss';
 import CommentInput from '../../components/commentInput';
 
+import './PostDetail.scss';
+
 const PostDetail = () => {
+
   return (
     <div className="post-container">
       <div className="post-header">

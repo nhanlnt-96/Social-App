@@ -7,7 +7,6 @@ import {
 const initialState = {
   loading: false,
   allPosts: [],
-  postDetail: {},
   error: null
 }
 

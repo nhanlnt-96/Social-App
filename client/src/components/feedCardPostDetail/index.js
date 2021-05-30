@@ -7,6 +7,7 @@ import {
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { getPostById } from '../../network/services/post';
+import AvatarImg from '../../assets/8c4ac8c19d21687f3130.jpeg';
 
 
 const {Meta} = Card;
@@ -44,7 +45,7 @@ const FeedCardPostDetail = () => {
       >
         <Meta
           avatar={<Avatar
-            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+            src={AvatarImg} />}
           title={`${postData.username} (${moment(postData.createdAt).format('DD/MM/YYYY - HH:mm')})`}
           description={postData.postText}
         />
