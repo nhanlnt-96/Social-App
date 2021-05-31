@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
@@ -11,7 +11,8 @@ const PostInput = () => {
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
-    dispatch(createPostRequest(values))
+    dispatch(createPostRequest(values));
+    form.resetFields();
   };
 
   return (

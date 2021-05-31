@@ -1,6 +1,5 @@
 import {
   CREATE_COMMENT_REQUEST,
-  GET_COMMENT_BY_POST_ID,
   LOAD_COMMENT_FAIL,
   LOAD_COMMENT_START,
   LOAD_COMMENT_SUCCESS
@@ -24,13 +23,6 @@ export const loadCommentFail = (error) => {
   return {
     type: LOAD_COMMENT_FAIL,
     payload: error
-  }
-}
-
-export const getCommentByPostId = (id) => {
-  return {
-    type: GET_COMMENT_BY_POST_ID,
-    payload: id
   }
 }
 

@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import moment from 'moment';
 import AvatarImg from '../../assets/8c4ac8c19d21687f3130.jpeg';
+import PostImg from '../../assets/post-img.jpeg';
 
 import './FeedCard.scss';
 
@@ -28,7 +29,7 @@ const FeedCard = ({allPosts}) => {
                 cover={
                   <img
                     alt="example"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                    src={PostImg}
                   />
                 }
                 actions={[

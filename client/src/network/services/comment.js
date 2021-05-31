@@ -9,6 +9,6 @@ export const createComment = async (id, commentBody) => {
   });
 }
 
-export const getCommentById = async () => {
-  return axios.get(baseURL);
+export const getCommentById = async (id) => {
+  return axios.get(`${baseURL}/${id}`);
 }

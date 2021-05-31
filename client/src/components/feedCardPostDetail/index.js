@@ -8,7 +8,7 @@ import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { getPostById } from '../../network/services/post';
 import AvatarImg from '../../assets/8c4ac8c19d21687f3130.jpeg';
-
+import PostImg from '../../assets/post-img.jpeg';
 
 const {Meta} = Card;
 
@@ -35,7 +35,7 @@ const FeedCardPostDetail = () => {
         cover={
           <img
             alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            src={PostImg}
           />
         }
         actions={[
