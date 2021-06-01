@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {Users} = require('../models');
 const bcrypt = require('bcrypt');
+const {createToken} = require('../jwt');
 
 //registration
 router.post('/', async (req, res) => {
@@ -23,7 +24,11 @@ router.post('/login', async (req, res) => {
   !user && res.json({error: 'User does not exist'});
 
   bcrypt.compare(password, user.password).then((match) => {
-    !match ? res.json({error: 'Username or password is wrong'}) : res.json(username);
+    !match && res.json({error: 'Username or password is wrong'});
+
+    const accessToken = createToken(user);
+
+    res.json(accessToken);
   })
 })
 
