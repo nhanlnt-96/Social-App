@@ -1,4 +1,4 @@
-const {sign} = require('jsonwebtoken');
+const {sign, verify} = require('jsonwebtoken');
 
 const createToken = (user) => {
   const accessToken = sign({
@@ -9,6 +9,19 @@ const createToken = (user) => {
   return accessToken;
 };
 
+const validateToken = (req, res, next) => {
+  const accessToken = req.cookies['access-token'];
+  if (!accessToken) return res.json({error: 'User not authenticated'});
 
+  try {
+    const validToken = verify(accessToken, 'thisIsJWTMakeItSecret');
+    if (validToken) {
+      req.authenticate = true;
+      return next();
+    }
+  } catch (error) {
+    return res.json({error: error});
+  }
+}
 
-module.exports = {createToken};
+module.exports = {createToken, validateToken};
