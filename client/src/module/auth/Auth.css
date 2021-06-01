@@ -1,0 +1,19 @@
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-form .ant-form-item {
+  width: 35%;
+}
+.login-form .ant-form-item .login-form-forgot {
+  float: right;
+}
+.login-form .ant-form-item .login-form-button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/*# sourceMappingURL=Auth.css.map */

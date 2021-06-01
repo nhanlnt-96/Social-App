@@ -1,7 +1,7 @@
 import React from 'react';
-import { DesktopOutlined, PlayCircleOutlined, UserOutlined } from "@ant-design/icons";
+import { DesktopOutlined, PlayCircleOutlined, UserOutlined } from '@ant-design/icons';
 
-export const MenuList=[
+export const MenuList = [
   {
     id: 'news-feed',
     label: 'NEWS FEED',

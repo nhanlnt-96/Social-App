@@ -1,11 +1,10 @@
 import { fork } from 'redux-saga/effects';
-import { onCreateComment, onCreatePost, onLoadComment, onLoadPost } from './hanlerSaga';
+import { onAuth, onComment, onPost } from './hanlerSaga';
 
 function* rootSaga() {
-  yield fork(onLoadPost)
-  yield fork(onCreatePost)
-  yield fork(onLoadComment)
-  yield fork(onCreateComment)
+  yield fork(onPost)
+  yield fork(onComment)
+  yield fork(onAuth)
 }
 
 export default rootSaga;
