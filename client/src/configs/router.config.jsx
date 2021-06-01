@@ -8,6 +8,7 @@ export const routes = [
   {
     path: '/',
     isExact: true,
+    isPrivate: true,
     module: <Homepage />
   },
   {
@@ -23,6 +24,7 @@ export const routes = [
   {
     path: '/posts/:id',
     isExact: true,
+    isPrivate: true,
     module: <PostDetail />
   },
   {
