@@ -7,13 +7,18 @@ const {createToken} = require('../jwt');
 //registration
 router.post('/', async (req, res) => {
   const {username, password} = req.body;
-  bcrypt.hash(password, 10).then((hash) => {
-    Users.create({
-      username: username,
-      password: hash
+  const user = await Users.findOne({where: {username: username}});
+  if (user) {
+    res.json({error: 'Username already exist !'});
+  } else {
+    bcrypt.hash(password, 10).then((hash) => {
+      Users.create({
+        username: username,
+        password: hash
+      });
+      res.json('Registered !');
     });
-    res.json('complete');
-  });
+  }
 });
 
 //auth
@@ -24,11 +29,18 @@ router.post('/login', async (req, res) => {
   !user && res.json({error: 'User does not exist'});
 
   bcrypt.compare(password, user.password).then((match) => {
-    !match && res.json({error: 'Username or password is wrong'});
+    if (!match) {
+      res.json({error: 'Username or password is wrong'});
+    } else {
+      const accessToken = createToken(user);
+      res.cookie('access-token', accessToken, {
+        maxAge: 60 * 60 * 24 * 30 * 1000,
+        httpOnly: true
+      });
 
-    const accessToken = createToken(user);
+      res.json('Logged in');
+    }
 
-    res.json(accessToken);
   })
 })
 
