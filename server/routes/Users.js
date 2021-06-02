@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
           httpOnly: true
         });
 
-        res.json(accessToken);
+        res.json({auth: true, accessToken: accessToken, username: username});
       }
     });
   }
