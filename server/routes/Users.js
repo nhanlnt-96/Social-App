@@ -26,22 +26,23 @@ router.post('/login', async (req, res) => {
   const {username, password} = req.body;
   const user = await Users.findOne({where: {username: username}});
 
-  !user && res.json({error: 'User does not exist'});
+  if (!user) {
+    res.json({error: 'User does not exist'})
+  } else {
+    bcrypt.compare(password, user.password).then((match) => {
+      if (!match) {
+        res.json({error: 'Username or password is wrong'});
+      } else {
+        const accessToken = createToken(user);
+        res.cookie('access-token', accessToken, {
+          maxAge: 60 * 60 * 24 * 30 * 1000,
+          httpOnly: true
+        });
 
-  bcrypt.compare(password, user.password).then((match) => {
-    if (!match) {
-      res.json({error: 'Username or password is wrong'});
-    } else {
-      const accessToken = createToken(user);
-      res.cookie('access-token', accessToken, {
-        maxAge: 60 * 60 * 24 * 30 * 1000,
-        httpOnly: true
-      });
-
-      res.json('Logged in');
-    }
-
-  })
-})
+        res.json(accessToken);
+      }
+    });
+  }
+});
 
 module.exports = router;
