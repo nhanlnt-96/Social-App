@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {Posts} = require('../models');
-const {validateToken} = require('../jwt');
+const {validateToken} = require('../middleware/jwt');
 
 //create post
 router.post('/', validateToken, async (req, res) => {

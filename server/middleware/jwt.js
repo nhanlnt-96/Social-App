@@ -4,7 +4,7 @@ const createToken = (user) => {
   const accessToken = sign({
     username: user.username,
     id: user.id
-  }, 'thisIsJWTMakeItSecret');
+  }, process.env.ACCESS_TOKEN);
 
   return accessToken;
 };
@@ -14,7 +14,7 @@ const validateToken = (req, res, next) => {
   if (!accessToken) return res.json({error: 'User not logged in !'});
 
   try {
-    const validToken = verify(accessToken, 'thisIsJWTMakeItSecret');
+    const validToken = verify(accessToken, process.env.ACCESS_TOKEN);
     if (validToken) {
       req.authenticate = true;
       return next();
