@@ -10,13 +10,13 @@ const createToken = (user) => {
 };
 
 const validateToken = (req, res, next) => {
-  const accessToken = req.cookies['access-token'];
-  if (!accessToken) return res.json({error: 'User not authenticated'});
+  const accessToken = req.header('access-token');
+
+  if (!accessToken) return res.json({error: 'User not logged in!'});
 
   try {
     const validToken = verify(accessToken, 'thisIsJWTMakeItSecret');
     if (validToken) {
-      req.authenticate = true;
       return next();
     }
   } catch (error) {
