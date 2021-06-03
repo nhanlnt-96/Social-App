@@ -24,7 +24,7 @@ export const routes = [
   {
     path: '/posts/:id',
     isExact: true,
-    isPrivate: true,
+    isPrivate: false,
     module: <PostDetail />
   },
   {

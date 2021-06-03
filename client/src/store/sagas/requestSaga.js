@@ -3,8 +3,6 @@ import { createPost, getAllPosts } from '../../network/services/post';
 import { loadPostFail, loadPostSuccess } from '../redux/posts/actions';
 import { createComment, getCommentById } from '../../network/services/comment';
 import { loadCommentFail, loadCommentSuccess } from '../redux/comments/actions';
-import { loginRequest, registerRequest } from '../../network/services/auth';
-import { loginFail, loginSuccess, registerFail, registerSuccess } from '../redux/auth/actions';
 
 //post
 export function* onCreatePostRequest(action) {
@@ -44,25 +42,6 @@ export function* onLoadCommentStartAsync(action) {
     yield put(loadCommentSuccess(response.data));
   } catch (error) {
     yield put(loadCommentFail(error));
-  }
-}
-
-//auth
-export function* onRegisterStart(action) {
-  try {
-    const response = yield call(registerRequest, action.payload);
-    yield put(registerSuccess(response));
-  } catch (error) {
-    yield put(registerFail(error));
-  }
-}
-
-export function* onLoginStart(action) {
-  try {
-    const response = yield call(loginRequest, action.payload);
-    yield put(loginSuccess(response));
-  } catch (error) {
-    yield put(loginFail(error));
   }
 }
 

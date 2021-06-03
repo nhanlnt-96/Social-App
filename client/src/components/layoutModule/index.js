@@ -9,11 +9,11 @@ import { useSelector } from 'react-redux';
 const {Content} = Layout;
 
 const LayoutModule = () => {
-  const state = useSelector(state => ({...state.isAuth}));
+  const state = useSelector(state => ({...state.allPostsData}));
 
   const renderComponent = (module, isPrivate, isLogged) => () => {
     if (isPrivate) {
-      return isLogged ? module : <Redirect to="/login" />
+      return !isLogged ? module : <Redirect to="/login" />
     }
     return module;
   }
@@ -26,7 +26,7 @@ const LayoutModule = () => {
             const {path, isExact, isPrivate, module} = val;
             return (
               <Route key={index} path={path} exact={isExact}>
-                {renderComponent(module, isPrivate, state.isLogged)}
+                {renderComponent(module, isPrivate, state.allPosts.error)}
               </Route>
             )
           })

@@ -2,27 +2,27 @@ import React, { useEffect } from 'react';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginSuccess} from '../../store/redux/auth/actions';
+import { loginRequest } from '../../network/services/auth';
 
 import './Auth.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../store/redux/auth/actions';
 
 export const LoginPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const state = useSelector(state => ({...state.isAuth}));
 
-  const onFinish = (values) => {
-    dispatch(loginUser(values));
+  const onFinish = async (values) => {
+    await loginRequest(values).then((response) => {
+      const {data} = response;
+      if (data.error) {
+        message.error(data.error);
+      } else {
+        history.push('/');
+        dispatch(loginSuccess(data));
+      }
+    })
   };
-
-  useEffect(() => {
-    if (!state.isLogged && state.response) {
-      message.error(state.response);
-    } else if (state.isLogged) {
-      history.push('/');
-    }
-  }, [state.isLogged, state.response, history]);
 
   return (
     <>

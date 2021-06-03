@@ -10,8 +10,8 @@ const {Header} = Layout;
 
 
 const Navigation = () => {
-  const state = useSelector(state => ({...state.isAuth}));
-  console.log(state)
+  const state = useSelector(state => ({...state.allPostsData}));
+  console.log(state);
 
   return (
     <Header style={{position: 'fixed', zIndex: 1, width: '100%'}} className="header">
@@ -20,12 +20,12 @@ const Navigation = () => {
       </div>
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['news-feed']}>
         {
-          state.isLogged && MenuList.map((val) => {
+          !state.allPosts.error && MenuList.map((val) => {
             const {id, label, icon, url} = val;
             return (
               <Menu.Item key={id}>
                 {icon}
-                <Link to={url}>{(id === 'account') ? state.response.data : label}</Link>
+                <Link to={url}>{(id === 'account') ? state.response : label}</Link>
               </Menu.Item>
             )
           })

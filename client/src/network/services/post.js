@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
 const baseURL = 'http://localhost:3001/posts';
 
 export const getAllPosts = async () => {

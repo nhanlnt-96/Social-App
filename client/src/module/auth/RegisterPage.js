@@ -2,21 +2,15 @@ import React from 'react';
 import { Button, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { registerUser } from '../../store/redux/auth/actions';
+import { registerRequest } from '../../network/services/auth';
 
 export const RegisterPage = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const onFinish = async (values) => {
-    try {
-      dispatch(registerUser(values));
-    } catch (error) {
-      console.log(error);
-    } finally {
+    await registerRequest(values).then(() => {
       history.push('/login');
-    }
+    })
   };
 
   return (
@@ -48,7 +42,7 @@ export const RegisterPage = () => {
           },
         ]}
       >
-        <Input.Password
+        <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"

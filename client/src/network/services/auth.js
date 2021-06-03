@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+axios.defaults.withCredentials = true
 const baseURL = 'http://localhost:3001/auth';
 
 export const registerRequest = async (values) => {
@@ -15,8 +16,7 @@ export const loginRequest = async (values) => {
     username: values.username,
     password: values.password
   }).then((response) => {
-    const accessToken = response.data;
-    Cookies.set('access-token', accessToken);
+    Cookies.set('access-token', response.data);
+    return response;
   })
 }
-
