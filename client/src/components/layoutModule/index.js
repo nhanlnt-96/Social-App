@@ -8,7 +8,6 @@ import { Layout } from 'antd';
 const {Content} = Layout;
 
 const LayoutModule = () => {
-
   return (
     <Content className="site-layout content" style={{padding: '0 50px', marginTop: 64}}>
       <Switch>

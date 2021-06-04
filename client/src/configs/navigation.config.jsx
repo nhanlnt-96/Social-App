@@ -1,5 +1,11 @@
 import React from 'react';
-import { DesktopOutlined, PlayCircleOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  DesktopOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  PlayCircleOutlined,
+  UserAddOutlined
+} from '@ant-design/icons';
 
 export const MenuList = [
   {
@@ -16,8 +22,23 @@ export const MenuList = [
   },
   {
     id: 'account',
-    label: 'ACCOUNT',
-    icon: <UserOutlined />,
+    label: 'LOGOUT',
+    icon: <LogoutOutlined />,
     url: '/'
+  }
+]
+
+export const AuthList = [
+  {
+    id: 'register',
+    label: 'REGISTER',
+    icon: <UserAddOutlined />,
+    url: '/register'
   },
+  {
+    id: 'login',
+    label: 'LOG IN',
+    icon: <LoginOutlined />,
+    url: '/login'
+  }
 ]

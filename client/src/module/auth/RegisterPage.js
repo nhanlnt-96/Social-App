@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { registerRequest } from '../../network/services/auth';
@@ -8,8 +8,14 @@ export const RegisterPage = () => {
   const history = useHistory();
 
   const onFinish = async (values) => {
-    await registerRequest(values).then(() => {
-      history.push('/login');
+    await registerRequest(values).then((response) => {
+      const {data} = response;
+      if (data.error) {
+        message.error(data.error);
+      } else {
+        message.success(data);
+        history.push('/login');
+      }
     })
   };
 

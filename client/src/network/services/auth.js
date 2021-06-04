@@ -15,3 +15,11 @@ export const loginRequest = async (values) => {
     password: values.password
   })
 }
+
+export const getAuth = async () => {
+  return axios.get(`${baseURL}/auth-user`, {
+    headers: {
+      accessToken: localStorage.getItem('accessToken')
+    }
+  })
+}

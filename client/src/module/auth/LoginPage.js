@@ -18,12 +18,13 @@ export const LoginPage = () => {
       if (data.error) {
         message.error(data.error);
       } else {
-        sessionStorage.setItem('accessToken', data);
+        localStorage.setItem('accessToken', data);
         dispatch(loginSuccess());
-        history.push('/');
+        history.push('/')
       }
     })
   };
+
 
   return (
     <>
@@ -61,15 +62,15 @@ export const LoginPage = () => {
             placeholder="Password"
           />
         </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
+        {/*<Form.Item>*/}
+        {/*  <Form.Item name="remember" valuePropName="checked" noStyle>*/}
+        {/*    <Checkbox>Remember me</Checkbox>*/}
+        {/*  </Form.Item>*/}
 
-          {/*<a className="login-form-forgot" href="">*/}
-          {/*  Forgot password*/}
-          {/*</a>*/}
-        </Form.Item>
+        {/*  /!*<a className="login-form-forgot" href="">*!/*/}
+        {/*  /!*  Forgot password*!/*/}
+        {/*  /!*</a>*!/*/}
+        {/*</Form.Item>*/}
 
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button">
