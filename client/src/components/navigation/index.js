@@ -11,7 +11,6 @@ const {Header} = Layout;
 
 const Navigation = () => {
   const state = useSelector(state => ({...state.allPostsData}));
-  console.log(state);
 
   return (
     <Header style={{position: 'fixed', zIndex: 1, width: '100%'}} className="header">

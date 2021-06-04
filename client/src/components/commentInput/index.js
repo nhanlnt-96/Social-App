@@ -11,7 +11,7 @@ const CommentInput = () => {
   const dispatch = useDispatch();
   const [commentBody, setCommentBody] = useState('');
 
-  const onCommentBtnClick = () => {
+  const onCommentBtnClick = async () => {
     dispatch(createCommentRequest(id, commentBody));
     setCommentBody('');
   }

@@ -23,6 +23,7 @@ const CommentList = () => {
       renderItem={item => (
         <li>
           <Comment
+            author={item.username}
             content={item.commentContent}
             datetime={moment(item.createdAt).format('DD/MM/YYYY - HH:mm')}
           />

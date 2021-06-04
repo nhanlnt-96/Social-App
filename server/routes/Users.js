@@ -34,12 +34,7 @@ router.post('/login', async (req, res) => {
         res.json({error: 'Username or password is wrong'});
       } else {
         const accessToken = createToken(user);
-        res.cookie('access-token', accessToken, {
-          maxAge: 60 * 60 * 24 * 30 * 1000,
-          httpOnly: true
-        });
-
-        res.json('Logged in !');
+        res.json(accessToken);
       }
     });
   }

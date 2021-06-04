@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginSuccess} from '../../store/redux/auth/actions';
 import { loginRequest } from '../../network/services/auth';
 
 import './Auth.scss';
+import { loginSuccess } from '../../store/redux/auth/actions';
 
 export const LoginPage = () => {
   const history = useHistory();
@@ -18,8 +18,9 @@ export const LoginPage = () => {
       if (data.error) {
         message.error(data.error);
       } else {
+        sessionStorage.setItem('accessToken', data);
+        dispatch(loginSuccess());
         history.push('/');
-        dispatch(loginSuccess(data));
       }
     })
   };

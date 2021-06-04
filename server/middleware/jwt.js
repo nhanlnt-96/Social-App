@@ -10,13 +10,14 @@ const createToken = (user) => {
 };
 
 const validateToken = (req, res, next) => {
-  const accessToken = req.cookies['access-token'];
+  const accessToken = req.header('accessToken');
   if (!accessToken) return res.json({error: 'User not logged in !'});
 
   try {
     const validToken = verify(accessToken, process.env.ACCESS_TOKEN);
+    req.user = validToken;
+
     if (validToken) {
-      req.authenticate = true;
       return next();
     }
   } catch (error) {

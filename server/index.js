@@ -1,15 +1,10 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
 dotenv.config();
 
 const db = require('./models');

@@ -1,18 +1,9 @@
 import {
-  LOGIN_USER,
   LOGIN_USER_SUCCESS,
 } from './actionTypes';
 
-export const loginUser = (values) => {
-  return {
-    type: LOGIN_USER,
-    payload: values
-  }
-}
-
-export const loginSuccess = (values) => {
+export const loginSuccess = () => {
   return {
     type: LOGIN_USER_SUCCESS,
-    payload: values
   }
 }

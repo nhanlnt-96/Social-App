@@ -32,7 +32,7 @@ export function* onCreateCommentRequest(action) {
     const response = yield call(getCommentById, action.payload.id);
     yield put(loadCommentSuccess(response.data));
   } catch (error) {
-    console.log(error);
+    yield put(loadCommentFail(error))
   }
 }
 
