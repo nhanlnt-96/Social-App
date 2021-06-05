@@ -44,10 +44,9 @@ const FeedCardPostDetail = () => {
         ]}
       >
         <Meta
-          avatar={<Avatar
-            src={AvatarImg} />}
-          title={`${postData.username} (${moment(postData.createdAt).format('DD/MM/YYYY - HH:mm')})`}
-          description={postData.postText}
+          avatar={<Avatar src={AvatarImg} />}
+          title={postData.username}
+          description={`${moment(postData.createdAt).format('DD/MM/YYYY - HH:mm')}: ${postData.postText}`}
         />
       </Card>
     </div>

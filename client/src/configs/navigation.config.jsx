@@ -2,7 +2,6 @@ import React from 'react';
 import {
   DesktopOutlined,
   LoginOutlined,
-  LogoutOutlined,
   PlayCircleOutlined,
   UserAddOutlined
 } from '@ant-design/icons';
@@ -18,12 +17,6 @@ export const MenuList = [
     id: 'short-videos',
     label: 'SHORT VIDEOS',
     icon: <PlayCircleOutlined />,
-    url: '/'
-  },
-  {
-    id: 'account',
-    label: 'LOGOUT',
-    icon: <LogoutOutlined />,
     url: '/'
   }
 ]

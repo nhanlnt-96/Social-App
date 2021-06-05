@@ -1,5 +1,5 @@
 import {
-  CREATE_COMMENT_REQUEST,
+  CREATE_COMMENT_REQUEST, DELETE_COMMENT,
   LOAD_COMMENT_FAIL,
   LOAD_COMMENT_START,
   LOAD_COMMENT_SUCCESS
@@ -32,6 +32,16 @@ export const createCommentRequest = (id, commentBody) => {
     payload: {
       id,
       commentBody
+    }
+  }
+}
+
+export const deleteComment = (id, commentId) => {
+  return {
+    type: DELETE_COMMENT,
+    payload: {
+      id,
+      commentId
     }
   }
 }

@@ -41,10 +41,9 @@ const FeedCard = ({allPosts}) => {
                 ]}
               >
                 <Meta
-                  avatar={<Avatar
-                    src={AvatarImg} />}
-                  title={`${val.username} (${moment(val.createdAt).format('DD/MM/YYYY - HH:mm')})`}
-                  description={val.postText}
+                  avatar={<Avatar src={AvatarImg} />}
+                  title={val.username}
+                  description={`${moment(val.createdAt).format('DD/MM/YYYY - HH:mm')}: ${val.postText}`}
                 />
               </Card>
             )

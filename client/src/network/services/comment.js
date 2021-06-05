@@ -24,3 +24,11 @@ export const createComment = async (id, commentBody) => {
 export const getCommentById = async (id) => {
   return axios.get(`${baseURL}/${id}`);
 }
+
+export const deleteCommentRequest = async (id) => {
+  return axios.delete(`${baseURL}/${id}`, {
+    headers: {
+      accessToken: localStorage.getItem('accessToken')
+    }
+  });
+}

@@ -1,17 +1,16 @@
 import {
-  GET_USER_NAME,
-  LOGIN_USER_SUCCESS,
+  LOGIN_USER_SUCCESS, LOGOUT_USER,
 } from './actionTypes';
 
-export const loginSuccess = () => {
+export const loginSuccess = (values) => {
   return {
-    type: LOGIN_USER_SUCCESS
+    type: LOGIN_USER_SUCCESS,
+    payload: values
   }
 }
 
-export const getUsername = (username) => {
+export const logOutSuccess = () => {
   return {
-    type: GET_USER_NAME,
-    payload: username
+    type: LOGOUT_USER
   }
 }

@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { createPost, getAllPosts } from '../../network/services/post';
 import { loadPostFail, loadPostSuccess } from '../redux/posts/actions';
-import { createComment, getCommentById } from '../../network/services/comment';
+import { createComment, getCommentById, deleteCommentRequest } from '../../network/services/comment';
 import { loadCommentFail, loadCommentSuccess } from '../redux/comments/actions';
 
 //post
@@ -39,6 +39,16 @@ export function* onCreateCommentRequest(action) {
 export function* onLoadCommentStartAsync(action) {
   try {
     const response = yield call(getCommentById, action.payload);
+    yield put(loadCommentSuccess(response.data));
+  } catch (error) {
+    yield put(loadCommentFail(error));
+  }
+}
+
+export function* onDeleteComment(action) {
+  try {
+    yield call(deleteCommentRequest, action.payload.commentId);
+    const response = yield call(getCommentById, action.payload.id);
     yield put(loadCommentSuccess(response.data));
   } catch (error) {
     yield put(loadCommentFail(error));

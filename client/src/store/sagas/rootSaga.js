@@ -1,5 +1,5 @@
 import { fork } from 'redux-saga/effects';
-import { onComment, onPost } from './hanlerSaga';
+import { onComment, onPost } from './handlerSaga';
 
 function* rootSaga() {
   yield fork(onPost)

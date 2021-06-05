@@ -1,6 +1,5 @@
 import {
-  GET_USER_NAME,
-  LOGIN_USER_SUCCESS,
+  LOGIN_USER_SUCCESS, LOGOUT_USER,
 } from './actionTypes';
 
 const initialState = {
@@ -14,13 +13,13 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_USER_SUCCESS:
       return {
         ...state,
-        isLogged: true
-      }
-      case GET_USER_NAME:
-      return {
-        ...state,
         isLogged: true,
         response: action.payload
+      }
+    case LOGOUT_USER:
+      return {
+        ...state,
+        isLogged: false
       }
     default:
       return state;

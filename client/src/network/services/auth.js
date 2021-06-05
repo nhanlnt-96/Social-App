@@ -12,7 +12,8 @@ export const registerRequest = async (values) => {
 export const loginRequest = async (values) => {
   return axios.post(`${baseURL}/login`, {
     username: values.username,
-    password: values.password
+    password: values.password,
+    remember: values.remember
   })
 }
 

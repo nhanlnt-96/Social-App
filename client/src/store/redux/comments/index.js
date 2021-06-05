@@ -3,7 +3,6 @@ import { LOAD_COMMENT_FAIL, LOAD_COMMENT_START, LOAD_COMMENT_SUCCESS } from './a
 const initialState = {
   loading: false,
   allComments: [],
-  commentByPostId: [],
   error: null
 }
 
