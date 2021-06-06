@@ -27,5 +27,9 @@ export const getPostById = async (id) => {
 export const createPost = async (values) => {
   return await axios.post(baseURL, {
     postText: values.postContent
+  }, {
+    headers: {
+      accessToken: localStorage.getItem('accessToken')
+    }
   })
 }
