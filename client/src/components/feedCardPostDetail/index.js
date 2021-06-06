@@ -9,7 +9,7 @@ import AvatarImg from '../../assets/8c4ac8c19d21687f3130.jpeg';
 import PostImg from '../../assets/post-img.jpeg';
 import LikeSystem from '../likeSystem';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadPostByIdStart } from '../../store/redux/posts/actions';
+import { loadPostByIdStart, loadPostStart } from '../../store/redux/posts/actions';
 
 const {Meta} = Card;
 

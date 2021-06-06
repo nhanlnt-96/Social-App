@@ -4,6 +4,7 @@ import { likePostStart } from '../../store/redux/likes/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './LikeSystem.scss';
+import { loadPostStart } from '../../store/redux/posts/actions';
 
 const LikeSystem = ({postId, likes}) => {
   const dispatch = useDispatch();
@@ -12,7 +13,8 @@ const LikeSystem = ({postId, likes}) => {
   const {allPosts} = state;
 
   useEffect(() => {
-    setLiked(allPosts.likedPosts.map((val) => {
+    dispatch(loadPostStart());
+    allPosts.likedPosts && setLiked(allPosts.likedPosts.map((val) => {
       return val.PostId;
     }));
   }, [allPosts]);
