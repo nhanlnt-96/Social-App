@@ -1,0 +1,6 @@
+export const LIKE_POST_START = 'LIKE_POST_START';
+export const LIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
+export const LIKE_POST_FAIL = 'LIKE_POST_FAIL';
+
+
+

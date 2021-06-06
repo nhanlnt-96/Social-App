@@ -1,12 +1,15 @@
 import {
+  LOAD_POST_BY_ID_FAIL,
+  LOAD_POST_BY_ID_START, LOAD_POST_BY_ID_SUCCESS,
   LOAD_POST_FAIL,
   LOAD_POST_START,
   LOAD_POST_SUCCESS
-} from "./actionTypes";
+} from './actionTypes';
 
 const initialState = {
   loading: false,
   allPosts: [],
+  postById: [],
   error: null
 }
 
@@ -24,6 +27,23 @@ const postReducer = (state = initialState, action) => {
         allPosts: action.payload
       }
     case LOAD_POST_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      }
+    case LOAD_POST_BY_ID_START:
+      return {
+        ...state,
+        loading: true
+      }
+    case LOAD_POST_BY_ID_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        postById: action.payload
+      }
+    case LOAD_POST_BY_ID_FAIL:
       return {
         ...state,
         loading: false,

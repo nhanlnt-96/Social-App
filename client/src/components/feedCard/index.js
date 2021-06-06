@@ -4,13 +4,13 @@ import { Card, Avatar } from 'antd';
 import {
   CommentOutlined,
   DeleteOutlined,
-  LikeOutlined
 } from '@ant-design/icons';
 import moment from 'moment';
 import AvatarImg from '../../assets/8c4ac8c19d21687f3130.jpeg';
 import PostImg from '../../assets/post-img.jpeg';
 
 import './FeedCard.scss';
+import LikeSystem from '../likeSystem';
 
 const {Meta} = Card;
 
@@ -33,7 +33,7 @@ const FeedCard = ({allPosts}) => {
                   />
                 }
                 actions={[
-                  <LikeOutlined key="like" />,
+                  <LikeSystem postId={val.id} likes={val.Likes.length} />,
                   <CommentOutlined key="comment" onClick={() => {
                     history.push(`/posts/${val.id}`)
                   }} />,

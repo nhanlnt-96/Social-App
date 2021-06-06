@@ -16,8 +16,6 @@ const CommentList = () => {
     dispatch(loadCommentStart(id))
   }, [dispatch, id]);
 
-  console.log(state)
-
   return (
     <List
       className="comment-list"

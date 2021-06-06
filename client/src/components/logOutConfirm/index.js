@@ -1,5 +1,5 @@
 import React from 'react';
-import { message, Modal, Popconfirm } from 'antd';
+import { message, Popconfirm } from 'antd';
 import { logOutSuccess } from '../../store/redux/auth/actions';
 import { useDispatch } from 'react-redux';
 import { QuestionCircleOutlined } from '@ant-design/icons';

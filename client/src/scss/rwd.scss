@@ -60,6 +60,11 @@
       display: none !important;
     }
   }
+
+  //auth form
+  .login-form .ant-form-item {
+    width: 90% !important;
+  }
 }
 
 //s screen
@@ -114,6 +119,11 @@
       display: none !important;
     }
   }
+
+  //auth form
+  .login-form .ant-form-item {
+    width: 90% !important;
+  }
 }
 
 //ipad
@@ -149,6 +159,11 @@
       }
     }
   }
+
+  //auth form
+  .login-form .ant-form-item {
+    width: 70% !important;
+  }
 }
 
 //ipad pro
@@ -183,5 +198,10 @@
         width: 100%;
       }
     }
+  }
+
+  //auth form
+  .login-form .ant-form-item {
+    width: 70% !important;
   }
 }

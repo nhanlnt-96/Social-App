@@ -1,8 +1,10 @@
 import { call, put } from 'redux-saga/effects';
-import { createPost, getAllPosts } from '../../network/services/post';
-import { loadPostFail, loadPostSuccess } from '../redux/posts/actions';
+import { createPost, getAllPosts, getPostById } from '../../network/services/post';
+import { loadPostByIdSuccess, loadPostFail, loadPostSuccess } from '../redux/posts/actions';
 import { createComment, getCommentById, deleteCommentRequest } from '../../network/services/comment';
 import { loadCommentFail, loadCommentSuccess } from '../redux/comments/actions';
+import { likePostFail, likePostSuccess } from '../redux/likes/actions';
+import { likesPost } from '../../network/services/likesPost';
 
 //post
 export function* onCreatePostRequest(action) {
@@ -19,6 +21,15 @@ export function* onLoadPostStartAsync() {
   try {
     const response = yield call(getAllPosts);
     yield put(loadPostSuccess(response.data));
+  } catch (error) {
+    yield put(loadPostFail(error));
+  }
+}
+
+export function* onLoadPostByIdStartAsync(action) {
+  try {
+    const response = yield call(getPostById, action.payload);
+    yield put(loadPostByIdSuccess(response.data));
   } catch (error) {
     yield put(loadPostFail(error));
   }
@@ -52,6 +63,22 @@ export function* onDeleteComment(action) {
     yield put(loadCommentSuccess(response.data));
   } catch (error) {
     yield put(loadCommentFail(error));
+  }
+}
+
+//like system
+export function* onLikePost(action) {
+  try {
+    const response = yield call(likesPost, action.payload);
+    yield put(likePostSuccess(response.data));
+
+    const allPostResponse = yield call(getAllPosts);
+    yield put(loadPostSuccess(allPostResponse.data));
+
+    const postById = yield call(getPostById, action.payload);
+    yield put(loadPostByIdSuccess(postById.data));
+  } catch (error) {
+    yield put(likePostFail(error));
   }
 }
 
