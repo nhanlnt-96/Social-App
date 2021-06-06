@@ -11,6 +11,7 @@ import './Homepage.scss';
 const Homepage = () => {
   const dispatch = useDispatch();
   const state = useSelector(state => ({...state.allPostsData}));
+  const {allPosts} = state;
 
   useEffect(() => {
     dispatch(loadPostStart());
@@ -22,7 +23,8 @@ const Homepage = () => {
         <PostInput />
       </div>
       <div className="news-feed">
-        {state.loading ? <Skeleton active avatar paragraph={{rows: 10}} /> : <FeedCard allPosts={state.allPosts} />}
+        {state.loading ? <Skeleton active avatar paragraph={{rows: 10}} /> :
+          <FeedCard allPosts={allPosts.allPosts} />}
       </div>
     </div>
   )

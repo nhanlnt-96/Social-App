@@ -65,6 +65,21 @@
   .login-form .ant-form-item {
     width: 90% !important;
   }
+
+  //page not found
+  .page-not-found {
+    img {
+      width: 80%;
+    }
+
+    h3 {
+      font-size: 20px !important;
+    }
+
+    h2 {
+      font-size: 30px !important;
+    }
+  }
 }
 
 //s screen
@@ -123,6 +138,13 @@
   //auth form
   .login-form .ant-form-item {
     width: 90% !important;
+  }
+
+  //page not found
+  .page-not-found {
+    h2 {
+      font-size: 40px !important;
+    }
   }
 }
 

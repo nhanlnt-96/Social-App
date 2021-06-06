@@ -20,7 +20,7 @@ const FeedCard = ({allPosts}) => {
   return (
     <div className="feed-container" style={{padding: 24, minHeight: 380}}>
       {
-        allPosts.sort((x, y) => new Date(y.createdAt).getTime() - new Date(x.createdAt).getTime())
+        allPosts && allPosts.sort((x, y) => new Date(y.createdAt).getTime() - new Date(x.createdAt).getTime())
           .map((val, index) => {
             return (
               <Card

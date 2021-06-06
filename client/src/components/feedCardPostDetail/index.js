@@ -23,8 +23,6 @@ const FeedCardPostDetail = () => {
     dispatch(loadPostByIdStart(id));
   }, [id, dispatch]);
 
-  console.log(state)
-
   return (
     <div style={{padding: '24px 0', minHeight: 380}}>
       <Card

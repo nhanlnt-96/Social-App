@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const {Posts, Likes} = require('../models');
+const {validateToken} = require('../middleware/jwt');
+
 
 //create post
 router.post('/', async (req, res) => {
@@ -10,9 +12,11 @@ router.post('/', async (req, res) => {
 });
 
 //get post
-router.get('/', async (req, res) => {
+router.get('/', validateToken, async (req, res) => {
   const allPosts = await Posts.findAll({include: [Likes]});
-  res.json(allPosts);
+
+  const likedPosts = await Likes.findAll({where: {UserId: req.user.id}})
+  res.json({allPosts, likedPosts});
 });
 
 //individual pages base on ID
