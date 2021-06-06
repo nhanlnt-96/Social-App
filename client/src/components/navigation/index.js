@@ -33,7 +33,7 @@ const Navigation = () => {
   return (
     <Header style={{position: 'fixed', zIndex: 1, width: '100%'}} className="header">
       <div className="logo">
-        <h1>SOCIAL</h1>
+        <h1><Link to="/">SOCIAL</Link></h1>
       </div>
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['news-feed']}>
         {

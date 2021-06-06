@@ -20,7 +20,7 @@ const Homepage = () => {
   return (
     <div className="homepage">
       <div className="create-post">
-        <PostInput />
+        <PostInput allPosts={allPosts} />
       </div>
       <div className="news-feed">
         {state.loading ? <Skeleton active avatar paragraph={{rows: 10}} /> :

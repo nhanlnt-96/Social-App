@@ -13,11 +13,10 @@ const LikeSystem = ({postId, likes}) => {
   const {allPosts} = state;
 
   useEffect(() => {
-    dispatch(loadPostStart());
     allPosts.likedPosts && setLiked(allPosts.likedPosts.map((val) => {
       return val.PostId;
     }));
-  }, [allPosts]);
+  }, [dispatch, allPosts]);
 
   const onLikeBtnClick = async () => {
     dispatch(likePostStart(postId));

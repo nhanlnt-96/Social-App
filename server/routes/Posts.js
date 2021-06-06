@@ -5,8 +5,10 @@ const {validateToken} = require('../middleware/jwt');
 
 
 //create post
-router.post('/', async (req, res) => {
+router.post('/', validateToken, async (req, res) => {
   const post = req.body;
+  const username = req.user.username;
+  post.username = username;
   await Posts.create(post);
   res.json(post);
 });

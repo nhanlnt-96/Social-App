@@ -4,10 +4,15 @@ import { routes } from '../../configs/router.config';
 
 //import layout antd
 import { Layout } from 'antd';
+import { useSelector } from 'react-redux';
 
 const {Content} = Layout;
 
 const LayoutModule = () => {
+  const state = useSelector(state => ({...state.allPostsData}));
+
+
+
   return (
     <Content className="site-layout content" style={{padding: '0 50px', marginTop: 64}}>
       <Switch>
