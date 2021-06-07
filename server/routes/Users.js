@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
         username: username,
         password: hash
       });
-      res.json('Registered !');
+      res.json('Registered 😍');
     });
   }
 });
@@ -28,11 +28,11 @@ router.post('/login', async (req, res) => {
   const user = await Users.findOne({where: {username: username}});
 
   if (!user) {
-    res.json({error: 'Hmm, that email address doesn\'t look right.\n'})
+    res.json({error: 'Hmm, that email address doesn\'t look right.\n 😳'})
   } else {
     bcrypt.compare(password, user.password).then((match) => {
       if (!match) {
-        res.json({error: 'Username or password is wrong'});
+        res.json({error: 'Username or password is wrong 🤔'});
       } else {
         const accessToken = createToken(user);
         res.json({accessToken, username});
@@ -44,5 +44,12 @@ router.post('/login', async (req, res) => {
 router.get('/auth-user', validateToken, (req, res) => {
   res.json(req.user);
 })
+
+router.get('/profile/:id', async (req, res) => {
+  const id = req.params.id;
+  const profileUser = await Users.findByPk(id, {attributes: {exclude: ['password']}});
+
+  res.json(profileUser);
+});
 
 module.exports = router;

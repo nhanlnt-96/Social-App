@@ -12,23 +12,22 @@ import LogOutConfirm from '../logOutConfirm';
 
 const {Header} = Layout;
 
-
 const Navigation = () => {
   const dispatch = useDispatch();
+  const state = useSelector(state => ({...state.isAuth}));
+
   useEffect(() => {
     const getAuthUser = async () => {
       await getAuth().then((response) => {
         if (response.data.error) {
           console.log(response.data.error);
         } else {
-          dispatch(loginSuccess(response.data.username));
+          dispatch(loginSuccess(response.data));
         }
       })
     }
     getAuthUser();
   }, [dispatch]);
-
-  const state = useSelector(state => ({...state.isAuth}));
 
   return (
     <Header style={{position: 'fixed', zIndex: 1, width: '100%'}} className="header">
@@ -52,7 +51,7 @@ const Navigation = () => {
               })}
               <Menu.Item key="account">
                 <UserOutlined />
-                {state.response}
+                <Link to={`/profile/${state.response.id}`}>{state.response.username}</Link>
               </Menu.Item>
               <Menu.Item key="logout">
                 <LogoutOutlined />

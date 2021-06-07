@@ -6,7 +6,6 @@ import CommentInput from '../../components/commentInput';
 import './PostDetail.scss';
 
 const PostDetail = () => {
-
   return (
     <div className="post-container">
       <div className="post-header">

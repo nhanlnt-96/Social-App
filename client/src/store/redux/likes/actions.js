@@ -4,10 +4,13 @@ import {
   LIKE_POST_SUCCESS
 } from './actionTypes';
 
-export const likePostStart = (PostId) => {
+export const likePostStart = (PostId, UserId) => {
   return {
     type: LIKE_POST_START,
-    payload: PostId
+    payload: {
+      PostId,
+      UserId
+    }
   }
 }
 

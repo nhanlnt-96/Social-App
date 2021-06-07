@@ -1,6 +1,12 @@
 import { call, put } from 'redux-saga/effects';
-import { createPost, getAllPosts, getPostById } from '../../network/services/post';
-import { loadPostByIdSuccess, loadPostFail, loadPostSuccess } from '../redux/posts/actions';
+import { createPost, deletePost, getAllPosts, getPostById, getPostByUser } from '../../network/services/post';
+import {
+  loadPostByIdSuccess,
+  loadPostByUserFail,
+  loadPostByUserSuccess,
+  loadPostFail,
+  loadPostSuccess
+} from '../redux/posts/actions';
 import { createComment, getCommentById, deleteCommentRequest } from '../../network/services/comment';
 import { loadCommentFail, loadCommentSuccess } from '../redux/comments/actions';
 import { likePostFail, likePostSuccess } from '../redux/likes/actions';
@@ -30,6 +36,29 @@ export function* onLoadPostByIdStartAsync(action) {
   try {
     const response = yield call(getPostById, action.payload);
     yield put(loadPostByIdSuccess(response.data));
+  } catch (error) {
+    yield put(loadPostFail(error));
+  }
+}
+
+export function* onLoadPostByUserStartAsync(action) {
+  try {
+    const response = yield call(getPostByUser, action.payload);
+    yield put(loadPostByUserSuccess(response.data));
+  } catch (error) {
+    yield put(loadPostByUserFail(error));
+  }
+}
+
+export function* onDeletePostStart(action) {
+  try {
+    yield call(deletePost, action.payload);
+
+    const response = yield call(getAllPosts);
+    yield put(loadPostSuccess(response.data));
+
+    const postById = yield call(getPostById, action.payload);
+    yield put(loadPostByIdSuccess(postById.data));
   } catch (error) {
     yield put(loadPostFail(error));
   }
@@ -69,14 +98,17 @@ export function* onDeleteComment(action) {
 //like system
 export function* onLikePost(action) {
   try {
-    const response = yield call(likesPost, action.payload);
+    const response = yield call(likesPost, action.payload.PostId);
     yield put(likePostSuccess(response.data));
 
     const allPostResponse = yield call(getAllPosts);
     yield put(loadPostSuccess(allPostResponse.data));
 
-    const postById = yield call(getPostById, action.payload);
+    const postById = yield call(getPostById, action.payload.PostId);
     yield put(loadPostByIdSuccess(postById.data));
+
+    const postByUser = yield call(getPostByUser, action.payload.UserId);
+    yield put(loadPostByUserSuccess(postByUser.data));
   } catch (error) {
     yield put(likePostFail(error));
   }

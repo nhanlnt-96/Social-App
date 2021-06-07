@@ -3,11 +3,13 @@ import PostDetail from '../module/postDetail';
 import PageNotFound from '../module/pageNotFound';
 import { LoginPage } from '../module/auth/LoginPage';
 import { RegisterPage } from '../module/auth/RegisterPage';
+import ProfilePage from '../module/profilePage';
 
 export const routes = [
   {
     path: '/',
     isExact: true,
+    isPrivate: true,
     module: <Homepage />
   },
   {
@@ -22,8 +24,15 @@ export const routes = [
   },
   {
     path: '/posts/:id',
+    isPrivate: true,
     isExact: true,
     module: <PostDetail />
+  },
+  {
+    path: '/profile/:id',
+    isPrivate: true,
+    isExact: true,
+    module: <ProfilePage />
   },
   {
     path: '*',

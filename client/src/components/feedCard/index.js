@@ -1,26 +1,29 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Card, Avatar } from 'antd';
+import { Card, Avatar, Empty } from 'antd';
 import {
-  CommentOutlined,
-  DeleteOutlined,
+  CommentOutlined, EditOutlined
 } from '@ant-design/icons';
 import moment from 'moment';
-import AvatarImg from '../../assets/8c4ac8c19d21687f3130.jpeg';
+import AvatarImg from '../../assets/8c4ac8c19d21687f3130.png';
 import PostImg from '../../assets/post-img.jpeg';
 
 import './FeedCard.scss';
 import LikeSystem from '../likeSystem';
+import DeleteSystem from '../deleteSystem';
+import { useSelector } from 'react-redux';
+import PostUsername from '../postUsername';
 
 const {Meta} = Card;
 
 const FeedCard = ({allPosts}) => {
   let history = useHistory();
+  const isAuth = useSelector(state => ({...state.isAuth}));
 
   return (
     <div className="feed-container" style={{padding: 24, minHeight: 380}}>
       {
-        allPosts && allPosts.sort((x, y) => new Date(y.createdAt).getTime() - new Date(x.createdAt).getTime())
+        (allPosts && allPosts.length > 0) ? allPosts.sort((x, y) => new Date(y.createdAt).getTime() - new Date(x.createdAt).getTime())
           .map((val, index) => {
             return (
               <Card
@@ -32,25 +35,34 @@ const FeedCard = ({allPosts}) => {
                     src={PostImg}
                   />
                 }
-                actions={[
-                  <LikeSystem postId={val.id} likes={val.Likes.length} />,
-                  <CommentOutlined key="comment" onClick={() => {
-                    history.push(`/posts/${val.id}`)
-                  }} />,
-                  <DeleteOutlined key="delete" />,
-                ]}
-              >
+                actions={
+                  val.username === isAuth.response.username ?
+                    [
+                      <LikeSystem postId={val.id} likes={val.Likes && val.Likes.length} />,
+                      <CommentOutlined key="comment" onClick={() => {
+                        history.push(`/posts/${val.id}`)
+                      }} />,
+                      <EditOutlined key="edit" />,
+                      <DeleteSystem postId={val.id} />
+                    ] : [
+                      <LikeSystem postId={val.id} likes={val.Likes && val.Likes.length} userId={val.UserId} />,
+                      <CommentOutlined key="comment" onClick={() => {
+                        history.push(`/posts/${val.id}`)
+                      }} />,
+                      <EditOutlined key="edit" />
+                    ]
+                }>
                 <Meta
                   avatar={<Avatar src={AvatarImg} />}
-                  title={val.username}
+                  title={<PostUsername username={val.username} userId={val.UserId} />}
                   description={`${moment(val.createdAt).format('DD/MM/YYYY - HH:mm')}: ${val.postText}`}
                 />
               </Card>
             )
-          })
+          }) : <Empty />
       }
     </div>
-  )
-};
+  );
+}
 
 export default FeedCard;

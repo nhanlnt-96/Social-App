@@ -12,10 +12,9 @@ export const registerRequest = async (values) => {
 export const loginRequest = async (values) => {
   return axios.post(`${baseURL}/login`, {
     username: values.username,
-    password: values.password,
-    remember: values.remember
+    password: values.password
   })
-}
+};
 
 export const getAuth = async () => {
   return axios.get(`${baseURL}/auth-user`, {
@@ -23,4 +22,8 @@ export const getAuth = async () => {
       accessToken: localStorage.getItem('accessToken')
     }
   })
-}
+};
+
+export const getUserProfile = async (id) => {
+  return axios.get(`${baseURL}/profile/${id}`);
+};

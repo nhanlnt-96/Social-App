@@ -4,9 +4,8 @@ import { likePostStart } from '../../store/redux/likes/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './LikeSystem.scss';
-import { loadPostStart } from '../../store/redux/posts/actions';
 
-const LikeSystem = ({postId, likes}) => {
+const LikeSystem = ({postId, likes,userId}) => {
   const dispatch = useDispatch();
   const state = useSelector(state => ({...state.allPostsData}));
   const [liked, setLiked] = useState([]);
@@ -19,7 +18,7 @@ const LikeSystem = ({postId, likes}) => {
   }, [dispatch, allPosts]);
 
   const onLikeBtnClick = async () => {
-    dispatch(likePostStart(postId));
+    dispatch(likePostStart(postId,userId));
   }
 
   return (

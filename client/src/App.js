@@ -12,7 +12,7 @@ import { Layout } from 'antd';
 
 const {Footer} = Layout;
 
-function App() {
+function  App() {
   return (
     <Layout className="layout">
       <Navigation />

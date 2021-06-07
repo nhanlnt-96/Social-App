@@ -27,7 +27,7 @@ const Homepage = () => {
           <FeedCard allPosts={allPosts.allPosts} />}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default withRouter(Homepage);

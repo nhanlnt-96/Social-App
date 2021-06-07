@@ -28,6 +28,7 @@ export const RegisterPage = () => {
       }}
       onFinish={onFinish}
     >
+      <h2>SIGN UP</h2>
       <Form.Item
         name="username"
         rules={[

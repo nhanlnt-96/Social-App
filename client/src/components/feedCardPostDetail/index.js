@@ -1,23 +1,24 @@
 import React, { useEffect } from 'react';
 import { Card, Avatar } from 'antd';
-import {
-  DeleteOutlined
-} from '@ant-design/icons';
 import moment from 'moment';
-import { useParams } from 'react-router-dom';
-import AvatarImg from '../../assets/8c4ac8c19d21687f3130.jpeg';
+import { useHistory, useParams } from 'react-router-dom';
+import AvatarImg from '../../assets/8c4ac8c19d21687f3130.png';
 import PostImg from '../../assets/post-img.jpeg';
 import LikeSystem from '../likeSystem';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadPostByIdStart, loadPostStart } from '../../store/redux/posts/actions';
+import { loadPostByIdStart } from '../../store/redux/posts/actions';
+import DeleteSystem from '../deleteSystem';
+import { EditOutlined, RollbackOutlined } from '@ant-design/icons';
 
 const {Meta} = Card;
 
 const FeedCardPostDetail = () => {
   let {id} = useParams();
   const state = useSelector(state => ({...state.allPostsData}));
+  const isAuth = useSelector(state => ({...state.isAuth}));
   const {postById} = state;
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(loadPostByIdStart(id));
@@ -34,10 +35,23 @@ const FeedCardPostDetail = () => {
             src={PostImg}
           />
         }
-        actions={[
-          <LikeSystem postId={postById.id} likes={postById.Likes && postById.Likes.length} />,
-          <DeleteOutlined key="delete" />,
-        ]}
+        actions={
+          postById.username === isAuth.response ?
+            [
+              <LikeSystem postId={postById.id} likes={postById.Likes && postById.Likes.length} />,
+              <DeleteSystem postId={postById.id} />,
+              <EditOutlined key="edit" />,
+              <RollbackOutlined key="roll-back" onClick={() => {
+                history.push('/')
+              }} />
+            ] : [
+              <LikeSystem postId={postById.id} likes={postById.Likes && postById.Likes.length} />,
+              <EditOutlined key="edit" />,
+              <RollbackOutlined key="roll-back" onClick={() => {
+                history.push('/')
+              }} />
+            ]
+        }
       >
         <Meta
           avatar={<Avatar src={AvatarImg} />}
@@ -46,7 +60,7 @@ const FeedCardPostDetail = () => {
         />
       </Card>
     </div>
-  )
+  );
 };
 
 export default FeedCardPostDetail;

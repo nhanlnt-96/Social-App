@@ -4,9 +4,9 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginRequest } from '../../network/services/auth';
+import { loginSuccess } from '../../store/redux/auth/actions';
 
 import './Auth.scss';
-import { loginSuccess } from '../../store/redux/auth/actions';
 
 export const LoginPage = () => {
   const history = useHistory();
@@ -36,6 +36,7 @@ export const LoginPage = () => {
         }}
         onFinish={onFinish}
       >
+        <h2>LOG IN</h2>
         <Form.Item
           name="username"
           rules={[
@@ -71,7 +72,6 @@ export const LoginPage = () => {
         {/*    Forgot password*/}
         {/*  </a>*/}
         {/*</Form.Item>*/}
-
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
