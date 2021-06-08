@@ -7,7 +7,7 @@ const {validateToken} = require('../middleware/jwt');
 
 //registration
 router.post('/', async (req, res) => {
-  const {username, password} = req.body;
+  const {username, password, email} = req.body;
   const user = await Users.findOne({where: {username: username}});
   if (user) {
     res.json({error: 'Username already exist !'});
@@ -15,7 +15,8 @@ router.post('/', async (req, res) => {
     bcrypt.hash(password, 10).then((hash) => {
       Users.create({
         username: username,
-        password: hash
+        password: hash,
+        email: email
       });
       res.json('Registered 😍');
     });
@@ -51,5 +52,10 @@ router.get('/profile/:id', async (req, res) => {
 
   res.json(profileUser);
 });
+
+router.put('/change-password', async (req, res) => {
+  const {username, newPassword} = req.body;
+  const user = await Users.findOne({where: {username: username}});
+})
 
 module.exports = router;

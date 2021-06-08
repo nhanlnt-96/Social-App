@@ -5,7 +5,8 @@ const baseURL = 'http://localhost:3001/auth';
 export const registerRequest = async (values) => {
   return axios.post(baseURL, {
     username: values.username,
-    password: values.password
+    password: values.password,
+    email: values.email
   })
 };
 

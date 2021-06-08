@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { createPost, deletePost, getAllPosts, getPostById, getPostByUser } from '../../network/services/post';
+import { createPost, deletePost, editPost, getAllPosts, getPostById, getPostByUser } from '../../network/services/post';
 import {
   loadPostByIdSuccess,
   loadPostByUserFail,
@@ -11,6 +11,8 @@ import { createComment, getCommentById, deleteCommentRequest } from '../../netwo
 import { loadCommentFail, loadCommentSuccess } from '../redux/comments/actions';
 import { likePostFail, likePostSuccess } from '../redux/likes/actions';
 import { likesPost } from '../../network/services/likesPost';
+import { getAuth } from '../../network/services/auth';
+import { getAuthError, getAuthSuccess } from '../redux/auth/actions';
 
 //post
 export function* onCreatePostRequest(action) {
@@ -64,6 +66,19 @@ export function* onDeletePostStart(action) {
   }
 }
 
+export function* onEditPostStart(action) {
+  try {
+    yield call(editPost, action.payload.newPostText, action.payload.postId);
+
+    const response = yield call(getAllPosts);
+    yield put(loadPostSuccess(response.data));
+
+    const postById = yield call(getPostById, action.payload.postId);
+    yield put(loadPostByIdSuccess(postById.data));
+  } catch (error) {
+    yield put(loadPostFail(error));
+  }
+}
 
 //comment
 export function* onCreateCommentRequest(action) {

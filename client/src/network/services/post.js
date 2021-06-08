@@ -43,3 +43,17 @@ export const deletePost = async (postId) => {
     }
   })
 }
+
+export const editPost = async (newPostText, postId) => {
+  return await axios.put(`${baseURL}/edit-post`, {
+    newPostText: newPostText,
+    id: postId
+  }, {
+    headers: {
+      accessToken: localStorage.getItem('accessToken')
+    }
+  }).then((response) => {
+    message.success('Post edited 👍');
+    return response;
+  })
+}

@@ -15,7 +15,7 @@ export const MenuList = [
   },
   {
     id: 'short-videos',
-    label: 'SHORT VIDEOS',
+    label: 'SHORT VIDEOS (updating..)',
     icon: <PlayCircleOutlined />,
     url: '/'
   }

@@ -8,7 +8,8 @@ import LikeSystem from '../likeSystem';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadPostByIdStart } from '../../store/redux/posts/actions';
 import DeleteSystem from '../deleteSystem';
-import { EditOutlined, RollbackOutlined } from '@ant-design/icons';
+import { RollbackOutlined } from '@ant-design/icons';
+import EditPost from '../editPost';
 
 const {Meta} = Card;
 
@@ -36,17 +37,16 @@ const FeedCardPostDetail = () => {
           />
         }
         actions={
-          postById.username === isAuth.response ?
+          postById.username === isAuth.response.username ?
             [
               <LikeSystem postId={postById.id} likes={postById.Likes && postById.Likes.length} />,
               <DeleteSystem postId={postById.id} />,
-              <EditOutlined key="edit" />,
+              <EditPost postId={postById.id} postText={postById.postText} />,
               <RollbackOutlined key="roll-back" onClick={() => {
                 history.push('/')
               }} />
             ] : [
               <LikeSystem postId={postById.id} likes={postById.Likes && postById.Likes.length} />,
-              <EditOutlined key="edit" />,
               <RollbackOutlined key="roll-back" onClick={() => {
                 history.push('/')
               }} />

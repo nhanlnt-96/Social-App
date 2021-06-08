@@ -5,10 +5,10 @@ import './navigation.scss';
 import { AuthList, MenuList } from '../../configs/navigation.config';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSuccess } from '../../store/redux/auth/actions';
-import { getAuth } from '../../network/services/auth';
+import { getAuthStart, getAuthSuccess, loginSuccess } from '../../store/redux/auth/actions';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import LogOutConfirm from '../logOutConfirm';
+import { getAuth } from '../../network/services/auth';
 
 const {Header} = Layout;
 
@@ -22,6 +22,7 @@ const Navigation = () => {
         if (response.data.error) {
           console.log(response.data.error);
         } else {
+          dispatch(getAuthSuccess(response.data));
           dispatch(loginSuccess(response.data));
         }
       })
@@ -29,6 +30,7 @@ const Navigation = () => {
     getAuthUser();
   }, [dispatch]);
 
+  console.log(state)
 
   return (
     <Header style={{position: 'fixed', zIndex: 1, width: '100%'}} className="header">
@@ -52,7 +54,7 @@ const Navigation = () => {
               })}
               <Menu.Item key="account">
                 <UserOutlined />
-                <Link to={`/profile/${state.response.id}`}>{state.response.username}</Link>
+                <Link to={`/profile/${state.userAuth.id}`}>{state.response.username}</Link>
               </Menu.Item>
               <Menu.Item key="logout">
                 <LogoutOutlined />

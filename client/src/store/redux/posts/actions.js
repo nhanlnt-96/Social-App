@@ -1,6 +1,6 @@
 import {
   CREATE_POST_REQUEST,
-  DELETE_POST_REQUEST,
+  DELETE_POST_REQUEST, EDIT_POST_REQUEST,
   LOAD_POST_BY_ID_FAIL,
   LOAD_POST_BY_ID_START,
   LOAD_POST_BY_ID_SUCCESS,
@@ -88,5 +88,15 @@ export const deletePostRequest = (postId) => {
   return {
     type: DELETE_POST_REQUEST,
     payload: postId
+  }
+}
+
+export const editPostRequest = (postId, newPostText) => {
+  return {
+    type: EDIT_POST_REQUEST,
+    payload: {
+      postId,
+      newPostText
+    }
   }
 }

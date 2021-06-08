@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Input, message } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { registerRequest } from '../../network/services/auth';
 
@@ -29,6 +29,18 @@ export const RegisterPage = () => {
       onFinish={onFinish}
     >
       <h2>SIGN UP</h2>
+      <Form.Item
+        name="email"
+        rules={[
+          {
+            type: 'email',
+            required: true,
+            message: 'Please input your Email!',
+          },
+        ]}
+      >
+        <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
+      </Form.Item>
       <Form.Item
         name="username"
         rules={[

@@ -39,7 +39,14 @@ router.delete('/:postId', validateToken, async (req, res) => {
   const postId = req.params.postId;
   await Posts.destroy({where: {id: postId}});
   res.json('Post deleted');
-})
+});
 
+//edit post
+router.put('/edit-post', validateToken, async (req, res) => {
+  const {newPostText, id} = req.body;
+  await Posts.update({postText: newPostText}, {where: {id: id}});
+
+  res.json(newPostText);
+});
 
 module.exports = router;

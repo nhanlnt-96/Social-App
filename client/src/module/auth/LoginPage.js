@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox, message } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -7,6 +7,7 @@ import { loginRequest } from '../../network/services/auth';
 import { loginSuccess } from '../../store/redux/auth/actions';
 
 import './Auth.scss';
+import ForgotPassword from '../../components/forgotPassword';
 
 export const LoginPage = () => {
   const history = useHistory();
@@ -56,6 +57,7 @@ export const LoginPage = () => {
               message: 'Please input your Password!',
             },
           ]}
+          className="margin-bottom-pass"
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
@@ -63,15 +65,9 @@ export const LoginPage = () => {
             placeholder="Password"
           />
         </Form.Item>
-        {/*<Form.Item>*/}
-        {/*  <Form.Item name="remember" valuePropName="checked" noStyle>*/}
-        {/*    <Checkbox>Remember me</Checkbox>*/}
-        {/*  </Form.Item>*/}
-
-        {/*  <a className="login-form-forgot" href="">*/}
-        {/*    Forgot password*/}
-        {/*  </a>*/}
-        {/*</Form.Item>*/}
+        <Form.Item>
+          <ForgotPassword />
+        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
