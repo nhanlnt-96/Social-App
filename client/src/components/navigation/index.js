@@ -29,6 +29,7 @@ const Navigation = () => {
     getAuthUser();
   }, [dispatch]);
 
+
   return (
     <Header style={{position: 'fixed', zIndex: 1, width: '100%'}} className="header">
       <div className="logo">

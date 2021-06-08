@@ -19,7 +19,7 @@ export const LoginPage = () => {
         message.error(data.error);
       } else {
         localStorage.setItem('accessToken', data.accessToken);
-        dispatch(loginSuccess(data.username));
+        dispatch(loginSuccess(data));
         history.push('/')
       }
     })
