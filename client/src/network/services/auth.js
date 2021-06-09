@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd';
 
 const baseURL = 'http://localhost:3001/auth';
 
@@ -27,4 +28,12 @@ export const getAuth = async () => {
 
 export const getUserProfile = async (id) => {
   return axios.get(`${baseURL}/profile/${id}`);
+};
+
+export const updatePassword = async (email, username, newPassword) => {
+  return axios.put(`${baseURL}/change-password`, {
+    email: email,
+    username: username,
+    password: newPassword
+  });
 };

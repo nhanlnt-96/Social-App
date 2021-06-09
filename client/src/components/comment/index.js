@@ -25,7 +25,7 @@ const CommentList = () => {
       renderItem={item => (
         <li>
           <Comment
-            actions={(isAuthState.response === item.username) ?
+            actions={(isAuthState.userAuth.username === item.username) ?
               [<DeleteCommentConfirm commentId={item.id} />] : ''}
             author={item.username}
             content={item.commentContent}

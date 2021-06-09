@@ -37,7 +37,7 @@ const FeedCard = ({allPosts}) => {
                   />
                 }
                 actions={
-                  val.username === isAuth.response.username ?
+                  val.username === isAuth.userAuth.username ?
                     [
                       <LikeSystem postId={val.id} likes={val.Likes && val.Likes.length} />,
                       <CommentOutlined key="comment" onClick={() => {

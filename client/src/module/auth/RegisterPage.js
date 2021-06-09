@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Input, message } from 'antd';
-import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import { EyeInvisibleOutlined, EyeTwoTone, LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { registerRequest } from '../../network/services/auth';
 
@@ -23,9 +23,6 @@ export const RegisterPage = () => {
     <Form
       name="normal_login"
       className="login-form"
-      initialValues={{
-        remember: true,
-      }}
       onFinish={onFinish}
     >
       <h2>SIGN UP</h2>
@@ -61,7 +58,8 @@ export const RegisterPage = () => {
           },
         ]}
       >
-        <Input
+        <Input.Password
+          iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"

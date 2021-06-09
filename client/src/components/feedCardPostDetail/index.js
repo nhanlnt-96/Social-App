@@ -10,6 +10,7 @@ import { loadPostByIdStart } from '../../store/redux/posts/actions';
 import DeleteSystem from '../deleteSystem';
 import { RollbackOutlined } from '@ant-design/icons';
 import EditPost from '../editPost';
+import PostUsername from '../postUsername';
 
 const {Meta} = Card;
 
@@ -37,7 +38,7 @@ const FeedCardPostDetail = () => {
           />
         }
         actions={
-          postById.username === isAuth.response.username ?
+          postById.username === isAuth.userAuth.username ?
             [
               <LikeSystem postId={postById.id} likes={postById.Likes && postById.Likes.length} />,
               <DeleteSystem postId={postById.id} />,
@@ -55,7 +56,7 @@ const FeedCardPostDetail = () => {
       >
         <Meta
           avatar={<Avatar src={AvatarImg} />}
-          title={postById.username}
+          title={<PostUsername username={postById.username} userId={postById.UserId} />}
           description={`${moment(postById.createdAt).format('DD/MM/YYYY - HH:mm')}: ${postById.postText}`}
         />
       </Card>

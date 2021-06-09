@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { Input, Modal } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { Form, Input, message, Modal } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone, LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import { updatePassword } from '../../network/services/auth';
+
+import './ForgotPassword.scss';
 
 const ForgotPassword = () => {
   const [visible, setVisible] = useState(false);
@@ -13,10 +16,17 @@ const ForgotPassword = () => {
   }
 
   const onEditPostBtnClick = async () => {
-    console.log(usernameInput)
-    console.log(newPasswordInput)
-    setVisible(false);
+    await updatePassword(emailInput, usernameInput, newPasswordInput).then((response) => {
+      const {data} = response;
+      if (data.error) {
+        message.error(data.error);
+      } else {
+        message.success(data);
+        setVisible(false);
+      }
+    })
   }
+
   return (
     <>
       <p className="login-form-forgot" onClick={onShowModalBtnClick}>Forgot password</p>
@@ -28,26 +38,63 @@ const ForgotPassword = () => {
           setVisible(false)
         }}
       >
-        <Input placeholder="Enter your email..."
-               style={{marginBottom: '24px'}}
-               value={emailInput}
-               onChange={(e) => {
-                 setEmailInput(e.target.value)
-               }} />
-        <Input placeholder="Enter your username..."
-               style={{marginBottom: '24px'}}
-               value={usernameInput}
-               onChange={(e) => {
-                 setUsernameInput(e.target.value)
-               }} />
-        <Input.Password
-          placeholder="Enter your new password..."
-          value={newPasswordInput}
-          iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-          onChange={(e) => {
-            setNewPasswordInput(e.target.value)
-          }}
-        />
+        <Form
+          name="normal_update_password"
+          className="forgot-pass-form"
+        >
+          <Form.Item
+            name="email"
+            rules={[
+              {
+                type: 'email',
+                required: true,
+                message: 'Please input your Email!',
+              },
+            ]}
+          >
+            <Input
+              prefix={<MailOutlined
+                className="site-form-item-icon" />}
+              placeholder="Email"
+              onChange={(e) => {
+                setEmailInput(e.target.value)
+              }} />
+          </Form.Item>
+          <Form.Item
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Username!',
+              },
+            ]}
+          >
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Username"
+              onChange={(e) => {
+                setUsernameInput(e.target.value)
+              }} />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your New Password!',
+              },
+            ]}
+          >
+            <Input.Password
+              iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="New password"
+              onChange={(e) => {
+                setNewPasswordInput(e.target.value)
+              }} />
+          </Form.Item>
+        </Form>
       </Modal>
     </>
   );

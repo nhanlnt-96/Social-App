@@ -129,3 +129,12 @@ export function* onLikePost(action) {
   }
 }
 
+//auth
+export function* onAuthStart() {
+  try {
+    const response = yield call(getAuth);
+    yield put(getAuthSuccess(response.data));
+  } catch (error) {
+    yield put(getAuthError(error));
+  }
+}

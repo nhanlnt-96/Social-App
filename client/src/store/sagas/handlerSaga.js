@@ -6,8 +6,9 @@ import {
   LOAD_POST_START
 } from '../redux/posts/actionTypes';
 import {
+  onAuthStart,
   onCreateCommentRequest,
-  onCreatePostRequest, onDeleteComment, onDeletePostStart, onEditPostStart, onGetAuth, onLikePost,
+  onCreatePostRequest, onDeleteComment, onDeletePostStart, onEditPostStart, onLikePost,
   onLoadCommentStartAsync, onLoadPostByIdStartAsync, onLoadPostByUserStartAsync,
   onLoadPostStartAsync
 } from './requestSaga';
@@ -34,3 +35,6 @@ export function* onLike() {
   yield takeEvery(LIKE_POST_START, onLikePost);
 }
 
+export function* onAuth() {
+  yield takeEvery(GET_AUTH_START, onAuthStart);
+}

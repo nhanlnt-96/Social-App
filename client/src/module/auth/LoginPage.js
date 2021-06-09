@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form, Input, Button, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginRequest } from '../../network/services/auth';
-import { loginSuccess } from '../../store/redux/auth/actions';
+import { getAuthStart, loginSuccess } from '../../store/redux/auth/actions';
 
 import './Auth.scss';
 import ForgotPassword from '../../components/forgotPassword';
@@ -21,11 +21,11 @@ export const LoginPage = () => {
       } else {
         localStorage.setItem('accessToken', data.accessToken);
         dispatch(loginSuccess(data));
-        history.push('/')
+        dispatch(getAuthStart());
+        history.push('/');
       }
     })
   };
-
 
   return (
     <>
@@ -59,7 +59,8 @@ export const LoginPage = () => {
           ]}
           className="margin-bottom-pass"
         >
-          <Input
+          <Input.Password
+            iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"

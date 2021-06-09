@@ -9,8 +9,5 @@
   flex-wrap: wrap;
   height: 100%;
 }
-.feed-container .ant-card-body, .feed-container .ant-card-cover {
-  cursor: pointer;
-}
 
 /*# sourceMappingURL=FeedCard.css.map */

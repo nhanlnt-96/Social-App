@@ -17,20 +17,8 @@ const Navigation = () => {
   const state = useSelector(state => ({...state.isAuth}));
 
   useEffect(() => {
-    const getAuthUser = async () => {
-      await getAuth().then((response) => {
-        if (response.data.error) {
-          console.log(response.data.error);
-        } else {
-          dispatch(getAuthSuccess(response.data));
-          dispatch(loginSuccess(response.data));
-        }
-      })
-    }
-    getAuthUser();
+    dispatch(getAuthStart());
   }, [dispatch]);
-
-  console.log(state)
 
   return (
     <Header style={{position: 'fixed', zIndex: 1, width: '100%'}} className="header">
@@ -54,7 +42,7 @@ const Navigation = () => {
               })}
               <Menu.Item key="account">
                 <UserOutlined />
-                <Link to={`/profile/${state.userAuth.id}`}>{state.response.username}</Link>
+                <Link to={`/profile/${state.userAuth.id}`}>{state.userAuth.username}</Link>
               </Menu.Item>
               <Menu.Item key="logout">
                 <LogoutOutlined />
