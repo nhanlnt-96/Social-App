@@ -25,7 +25,7 @@ app.use('/likes', likeRouter);
 
 db.sequelize.sync().then(() => {
   app.listen(port, () => {
-    console.log('🚀 connected on port 3001');
+    console.log(`🚀 connected on port ${port}`);
   });
 }).catch((error) => {
   console.log(error);
