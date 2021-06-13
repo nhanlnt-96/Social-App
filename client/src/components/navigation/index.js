@@ -5,10 +5,9 @@ import './navigation.scss';
 import { AuthList, MenuList } from '../../configs/navigation.config';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAuthStart, getAuthSuccess, loginSuccess } from '../../store/redux/auth/actions';
+import { getAuthStart } from '../../store/redux/auth/actions';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import LogOutConfirm from '../logOutConfirm';
-import { getAuth } from '../../network/services/auth';
 
 const {Header} = Layout;
 

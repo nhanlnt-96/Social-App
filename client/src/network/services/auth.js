@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { message } from 'antd';
 
-const baseURL = 'http://localhost:3001/auth';
+const baseURL = 'https://18.221.160.140:3002/auth';
 
 export const registerRequest = async (values) => {
   return axios.post(baseURL, {
