@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'https://18.221.160.140:3002/auth';
+const baseURL = 'http://localhost:3001/auth';
 
 export const registerRequest = async (values) => {
   return axios.post(baseURL, {

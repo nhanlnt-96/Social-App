@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const dotenv = require('dotenv');
-const port = process.env.PORT || 3002;
 
 app.use(cors());
 app.use(express.json());
@@ -24,8 +23,8 @@ const likeRouter = require('./routes/Likes');
 app.use('/likes', likeRouter);
 
 db.sequelize.sync().then(() => {
-  app.listen(port, () => {
-    console.log(`🚀 connected on port ${port}`);
+  app.listen(3001, () => {
+    console.log(`🚀 connected on port 3001`);
   });
 }).catch((error) => {
   console.log(error);
