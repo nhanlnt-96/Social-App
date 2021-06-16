@@ -19,6 +19,8 @@ const Navigation = () => {
     dispatch(getAuthStart());
   }, [dispatch]);
 
+  console.log(state)
+
   return (
     <Header style={{position: 'fixed', zIndex: 1, width: '100%'}} className="header">
       <div className="logo">
@@ -26,7 +28,7 @@ const Navigation = () => {
       </div>
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['news-feed']}>
         {
-          state.isLogged ? (
+          (state.isLogged && !state.userAuth.error) ? (
             <>
               {MenuList.map((val) => {
                 const {id, label, icon, url} = val;

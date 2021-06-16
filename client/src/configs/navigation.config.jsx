@@ -13,12 +13,12 @@ export const MenuList = [
     icon: <DesktopOutlined />,
     url: '/'
   },
-  {
-    id: 'short-videos',
-    label: 'SHORT VIDEOS (updating..)',
-    icon: <PlayCircleOutlined />,
-    url: '/'
-  }
+  // {
+  //   id: 'short-videos',
+  //   label: 'SHORT VIDEOS (updating..)',
+  //   icon: <PlayCircleOutlined />,
+  //   url: '/'
+  // }
 ]
 
 export const AuthList = [
