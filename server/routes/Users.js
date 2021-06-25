@@ -60,7 +60,7 @@ router.get('/profile/:id', async (req, res) => {
 
 
 router.put('/change-password', async (req, res) => {
-  const { username, password, email } = req.body;
+  {const { username, password, email } = req.body;
   const user = await Users.findOne({
     where: {
       [Op.and]: [
@@ -86,7 +86,7 @@ router.put('/change-password', async (req, res) => {
       });
       res.json('Password changed 😍');
     });
-  }
+  }}
 });
 
 module.exports = router;
