@@ -5,10 +5,17 @@ const LikeMessage = require('../models/LikeMessage');
 //create post
 const createPost = async (req, res) => {
   const _id = mongoose.Types.ObjectId();
+  const createdAt = new Date();
   const post = req.body;
   post.username = req.user.username;
   post.UserId = req.user.id;
-  const newPost = new PostMessage({_id, username: post.username, postText: post.postText, UserId: post.UserId});
+  const newPost = new PostMessage({
+    _id,
+    username: post.username,
+    postText: post.postText,
+    createdAt,
+    UserId: post.UserId
+  });
   try {
     await newPost.save();
     res.json(post);
@@ -108,4 +115,4 @@ const editPost = async (req, res) => {
   }
 };
 
-module.exports = {createPost, getAllPost, getPostById, getPostByUser, deletePost,editPost}
+module.exports = {createPost, getAllPost, getPostById, getPostByUser, deletePost, editPost}

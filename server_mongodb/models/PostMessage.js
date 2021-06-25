@@ -17,7 +17,7 @@ const PostMessage = mongoose.model('Posts', mongoose.Schema({
     postFile: String,
     createdAt: {
       type: Date,
-      default: new Date()
+      require: true
     },
     UserId: {
       type: String,

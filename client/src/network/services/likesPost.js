@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3001/likes';
+const baseURL = 'https://social-app-lnt.herokuapp.com/likes';
 
 export const likesPost = async (postId) => {
   return await axios.post(baseURL, {

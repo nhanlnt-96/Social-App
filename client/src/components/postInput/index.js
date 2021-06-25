@@ -9,7 +9,7 @@ const PostInput = ({allPosts}) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const onFinish = async (values) => {
+  const onFinish = (values) => {
     dispatch(createPostRequest(values));
     form.resetFields();
   };
@@ -29,20 +29,6 @@ const PostInput = ({allPosts}) => {
           >
             <TextArea placeholder="What's on your mind ?" autoSize />
           </Form.Item>
-          {/*<Form.Item*/}
-          {/*  name="username"*/}
-          {/*  rules={[*/}
-          {/*    {*/}
-          {/*      required: true,*/}
-          {/*      message: 'Please input your username !',*/}
-          {/*    },*/}
-          {/*  ]}*/}
-          {/*>*/}
-          {/*  <Input*/}
-          {/*    prefix={<UserOutlined className="site-form-item-icon" />}*/}
-          {/*    placeholder="Username"*/}
-          {/*  />*/}
-          {/*</Form.Item>*/}
           <Form.Item shouldUpdate>
             {() => (
               <Button

@@ -26,7 +26,7 @@ const CommentList = () => {
         <li>
           <Comment
             actions={(isAuthState.userAuth.username === item.username) ?
-              [<DeleteCommentConfirm commentId={item.id} />] : ''}
+              [<DeleteCommentConfirm commentId={item._id} />] : ''}
             author={item.username}
             content={item.commentContent}
             datetime={moment(item.createdAt).format('DD/MM/YYYY - HH:mm')}

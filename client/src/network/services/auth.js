@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3001/auth';
+const baseURL = 'https://social-app-lnt.herokuapp.com/auth';
 
 export const registerRequest = async (values) => {
   return axios.post(baseURL, {

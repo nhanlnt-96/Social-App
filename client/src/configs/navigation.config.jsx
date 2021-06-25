@@ -2,7 +2,7 @@ import React from 'react';
 import {
   DesktopOutlined,
   LoginOutlined,
-  PlayCircleOutlined,
+  // PlayCircleOutlined,
   UserAddOutlined
 } from '@ant-design/icons';
 

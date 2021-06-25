@@ -39,16 +39,16 @@ const FeedCard = ({allPosts}) => {
                 actions={
                   val.username === isAuth.userAuth.username ?
                     [
-                      <LikeSystem postId={val.id} likes={val.Likes && val.Likes.length} />,
+                      <LikeSystem postId={val._id} likes={val.Likes && val.Likes.length} />,
                       <CommentOutlined key="comment" onClick={() => {
-                        history.push(`/posts/${val.id}`)
+                        history.push(`/posts/${val._id}`)
                       }} />,
-                      <EditPost postText={val.postText} postId={val.id} />,
-                      <DeleteSystem postId={val.id} />
+                      <EditPost postText={val.postText} postId={val._id} />,
+                      <DeleteSystem postId={val._id} />
                     ] : [
-                      <LikeSystem postId={val.id} likes={val.Likes && val.Likes.length} userId={val.UserId} />,
+                      <LikeSystem postId={val._id} likes={val.Likes && val.Likes.length} userId={val.UserId} />,
                       <CommentOutlined key="comment" onClick={() => {
-                        history.push(`/posts/${val.id}`)
+                        history.push(`/posts/${val._id}`)
                       }} />
                     ]
                 }>

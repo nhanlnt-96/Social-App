@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { message } from 'antd';
 
-const baseURL = 'http://localhost:3001/posts';
+const baseURL = 'https://social-app-lnt.herokuapp.com/posts';
 
 export const getAllPosts = async () => {
   return axios.get(baseURL, {
@@ -34,7 +34,7 @@ export const createPost = async (values) => {
       accessToken: localStorage.getItem('accessToken')
     }
   })
-}
+};
 
 export const deletePost = async (postId) => {
   return await axios.delete(`${baseURL}/${postId}`, {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { message } from 'antd';
 
-const baseURL = 'http://localhost:3001/comments';
+const baseURL = 'https://social-app-lnt.herokuapp.com/comments';
 
 export const createComment = async (id, commentBody) => {
   return axios.post(baseURL, {

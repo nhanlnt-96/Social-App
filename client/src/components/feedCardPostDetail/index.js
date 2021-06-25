@@ -28,38 +28,42 @@ const FeedCardPostDetail = () => {
 
   return (
     <div style={{padding: '24px 0', minHeight: 380}}>
-      <Card
-        style={{width: '100%'}}
-        key={postById.id}
-        cover={
-          <img
-            alt="example"
-            src={PostImg}
-          />
-        }
-        actions={
-          postById.username === isAuth.userAuth.username ?
-            [
-              <LikeSystem postId={postById.id} likes={postById.Likes && postById.Likes.length} />,
-              <DeleteSystem postId={postById.id} />,
-              <EditPost postId={postById.id} postText={postById.postText} />,
-              <RollbackOutlined key="roll-back" onClick={() => {
-                history.push('/')
-              }} />
-            ] : [
-              <LikeSystem postId={postById.id} likes={postById.Likes && postById.Likes.length} />,
-              <RollbackOutlined key="roll-back" onClick={() => {
-                history.push('/')
-              }} />
-            ]
-        }
-      >
-        <Meta
-          avatar={<Avatar src={AvatarImg} />}
-          title={<PostUsername username={postById.username} userId={postById.UserId} />}
-          description={`${moment(postById.createdAt).format('DD/MM/YYYY - HH:mm')}: ${postById.postText}`}
-        />
-      </Card>
+      {
+        postById.map((val) => (
+          <Card
+            style={{width: '100%'}}
+            key={val._id}
+            cover={
+              <img
+                alt="example"
+                src={PostImg}
+              />
+            }
+            actions={
+              val.username === isAuth.userAuth.username ?
+                [
+                  <LikeSystem postId={val._id} likes={val.Likes && val.Likes.length} />,
+                  <DeleteSystem postId={val._id} />,
+                  <EditPost postId={val._id} postText={val.postText} />,
+                  <RollbackOutlined key="roll-back" onClick={() => {
+                    history.push('/')
+                  }} />
+                ] : [
+                  <LikeSystem postId={val._id} likes={val.Likes && val.Likes.length} />,
+                  <RollbackOutlined key="roll-back" onClick={() => {
+                    history.push('/')
+                  }} />
+                ]
+            }
+          >
+            <Meta
+              avatar={<Avatar src={AvatarImg} />}
+              title={<PostUsername username={val.username} userId={val.UserId} />}
+              description={`${moment(val.createdAt).format('DD/MM/YYYY - HH:mm')}: ${val.postText}`}
+            />
+          </Card>
+        ))
+      }
     </div>
   );
 };
