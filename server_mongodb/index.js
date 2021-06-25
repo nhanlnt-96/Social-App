@@ -12,6 +12,10 @@ app.use(bodyParser.json({limit: '30mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '30mb', extended: true}));
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.send('Hello, welcome to Social-App-Api');
+});
+
 //user router
 const userRouter = require('./routes/Users');
 app.use('/auth', userRouter);
