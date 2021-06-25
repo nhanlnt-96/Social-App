@@ -16,7 +16,7 @@ sagaMiddleWare.run(rootSaga);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <HashRouter basename="">
+      <HashRouter basename="/">
         <App />
       </HashRouter>
     </Provider>
