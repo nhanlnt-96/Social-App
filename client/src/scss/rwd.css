@@ -37,10 +37,7 @@
     padding: 24px 0 !important;
   }
 
-  .ant-popover {
-    top: 64px !important;
-  }
-  .ant-popover .ant-popover-arrow {
+  .ant-popover-arrow {
     display: none !important;
   }
 
@@ -86,13 +83,6 @@
 
   .post-container .post-header, .post-container .post-content {
     width: 100%;
-  }
-
-  .ant-popover {
-    top: 64px !important;
-  }
-  .ant-popover .ant-popover-arrow {
-    display: none !important;
   }
 
   .login-form .ant-form-item {

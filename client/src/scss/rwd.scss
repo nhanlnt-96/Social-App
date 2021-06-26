@@ -53,12 +53,8 @@
   }
 
   //popover
-  .ant-popover {
-    top: 64px !important;
-
-    .ant-popover-arrow {
-      display: none !important;
-    }
+  .ant-popover-arrow {
+    display: none !important;
   }
 
   //auth form
@@ -123,15 +119,6 @@
       .post-header, .post-content {
         width: 100%;
       }
-    }
-  }
-
-  //popover
-  .ant-popover {
-    top: 64px !important;
-
-    .ant-popover-arrow {
-      display: none !important;
     }
   }
 
