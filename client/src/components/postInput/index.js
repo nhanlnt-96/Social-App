@@ -3,7 +3,6 @@ import { Form, Input, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { createPostRequest } from '../../store/redux/posts/actions';
 import FileBase from 'react-file-base64';
-import { UploadOutlined } from '@ant-design/icons';
 
 const {TextArea} = Input;
 
@@ -15,7 +14,6 @@ const PostInput = ({allPosts}) => {
     const onFinish = (values) => {
       dispatch(createPostRequest(values, postImage));
       form.resetFields();
-      console.log(postImage)
     };
 
     return (

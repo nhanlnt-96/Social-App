@@ -3,7 +3,6 @@ import { Card, Avatar } from 'antd';
 import moment from 'moment';
 import { useHistory, useParams } from 'react-router-dom';
 import AvatarImg from '../../assets/8c4ac8c19d21687f3130.png';
-import PostImg from '../../assets/post-img.jpeg';
 import LikeSystem from '../likeSystem';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadPostByIdStart } from '../../store/redux/posts/actions';
@@ -33,12 +32,7 @@ const FeedCardPostDetail = () => {
           <Card
             style={{width: '100%'}}
             key={val._id}
-            cover={
-              <img
-                alt="example"
-                src={PostImg}
-              />
-            }
+            cover={val.postFile}
             actions={
               val.username === isAuth.userAuth.username ?
                 [

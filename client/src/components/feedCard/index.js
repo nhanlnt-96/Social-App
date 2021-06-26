@@ -6,7 +6,6 @@ import {
 } from '@ant-design/icons';
 import moment from 'moment';
 import AvatarImg from '../../assets/8c4ac8c19d21687f3130.png';
-import PostImg from '../../assets/post-img.jpeg';
 
 import './FeedCard.scss';
 import LikeSystem from '../likeSystem';
@@ -20,7 +19,6 @@ const {Meta} = Card;
 const FeedCard = ({allPosts}) => {
   let history = useHistory();
   const isAuth = useSelector(state => ({...state.isAuth}));
-  console.log(allPosts)
 
   return (
     <div className="feed-container" style={{padding: 24, minHeight: 380}}>
