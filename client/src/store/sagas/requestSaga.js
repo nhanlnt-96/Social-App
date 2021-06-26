@@ -17,7 +17,7 @@ import { getAuthError, getAuthSuccess } from '../redux/auth/actions';
 //post
 export function* onCreatePostRequest(action) {
   try {
-    yield call(createPost, action.payload)
+    yield call(createPost, action.payload.postContent, action.payload.postFile);
     const response = yield call(getAllPosts);
     yield put(loadPostSuccess(response.data));
   } catch (error) {

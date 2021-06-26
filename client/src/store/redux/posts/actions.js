@@ -77,10 +77,13 @@ export const loadPostByUserFail = (error) => {
   }
 }
 
-export const createPostRequest = (postContent) => {
+export const createPostRequest = (postContent, postFile) => {
   return {
     type: CREATE_POST_REQUEST,
-    payload: postContent
+    payload: {
+      postContent,
+      postFile
+    }
   }
 }
 

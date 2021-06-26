@@ -26,9 +26,10 @@ export const getPostByUser = async (id) => {
   return await axios.get(`${baseURL}/post-by-user/${id}`);
 };
 
-export const createPost = async (values) => {
+export const createPost = async (values, postImage) => {
   return await axios.post(baseURL, {
-    postText: values.postContent
+    postText: values.postContent,
+    postFile: postImage
   }, {
     headers: {
       accessToken: localStorage.getItem('accessToken')

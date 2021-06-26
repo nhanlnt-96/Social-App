@@ -5,9 +5,11 @@ const createComment = async (req, res) => {
   const comment = req.body;
   const username = req.user.username;
   comment.username = username;
+  const createdAt = new Date();
   const newComment = new CommentMessage({
     username: comment.username,
     commentContent: comment.commentContent,
+    createdAt,
     PostId: comment.PostId
   });
 
@@ -42,4 +44,4 @@ const deleteComment = async (req, res) => {
   }
 }
 
-module.exports = {createComment, getAllComment,deleteComment}
+module.exports = {createComment, getAllComment, deleteComment}

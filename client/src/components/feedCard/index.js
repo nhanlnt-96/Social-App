@@ -20,6 +20,7 @@ const {Meta} = Card;
 const FeedCard = ({allPosts}) => {
   let history = useHistory();
   const isAuth = useSelector(state => ({...state.isAuth}));
+  console.log(allPosts)
 
   return (
     <div className="feed-container" style={{padding: 24, minHeight: 380}}>
@@ -31,9 +32,7 @@ const FeedCard = ({allPosts}) => {
                 style={{width: 400}}
                 key={index}
                 cover={
-                  <img
-                    alt="example"
-                    src={PostImg}
+                  <img alt="example" src={val.postFile}
                   />
                 }
                 actions={

@@ -9,6 +9,7 @@ const signUpAccount = async (req, res) => {
   const {username, password, email} = req.body;
   const userCheck = await UserMessage.findOne({username});
   const emailCheck = await UserMessage.findOne({email});
+  const createdAt = new Date();
 
   try {
     if (emailCheck) {
@@ -17,7 +18,7 @@ const signUpAccount = async (req, res) => {
       res.json({error: 'Username already exist. 🤔'});
     } else if (!userCheck && !emailCheck) {
       bcrypt.hash(password, 10).then(async (hash) => {
-        await new UserMessage({_id, email, username, password: hash}).save();
+        await new UserMessage({_id, email, username, password: hash, createdAt}).save();
         res.json('Registered 😍');
       });
     }

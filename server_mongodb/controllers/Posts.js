@@ -13,6 +13,7 @@ const createPost = async (req, res) => {
     _id,
     username: post.username,
     postText: post.postText,
+    postFile: post.postFile,
     createdAt,
     UserId: post.UserId
   });

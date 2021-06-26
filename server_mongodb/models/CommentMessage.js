@@ -11,7 +11,7 @@ const CommentMessage = mongoose.model('Comments', mongoose.Schema({
     },
     createdAt: {
       type: Date,
-      default: new Date()
+      require: true
     },
     PostId: {
       type: mongoose.Types.ObjectId,
