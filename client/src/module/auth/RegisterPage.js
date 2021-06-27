@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Input, message } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone, LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { registerRequest } from '../../network/services/auth';
+import FileBase64 from 'react-file-base64';
 
 export const RegisterPage = () => {
   const history = useHistory();
+  const [avatarImage, setAvatarImage] = useState('');
 
   const onFinish = async (values) => {
-    await registerRequest(values).then((response) => {
+    await registerRequest(values,avatarImage).then((response) => {
       const {data} = response;
       if (data.error) {
         message.error(data.error);
@@ -63,6 +65,15 @@ export const RegisterPage = () => {
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
+        />
+      </Form.Item>
+      <Form.Item
+        name="avatarFile"
+      >
+        <FileBase64
+          type="file"
+          multiple={false}
+          onDone={({base64}) => setAvatarImage(base64)}
         />
       </Form.Item>
       <Form.Item>

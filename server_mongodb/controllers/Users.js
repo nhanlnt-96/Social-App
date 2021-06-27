@@ -6,7 +6,7 @@ const {createToken} = require('../JWT/jwt');
 //sign up
 const signUpAccount = async (req, res) => {
   const _id = new mongoose.Types.ObjectId();
-  const {username, password, email} = req.body;
+  const {username, password, email,avatarFile} = req.body;
   const userCheck = await UserMessage.findOne({username});
   const emailCheck = await UserMessage.findOne({email});
   const createdAt = new Date();
@@ -18,7 +18,7 @@ const signUpAccount = async (req, res) => {
       res.json({error: 'Username already exist. 🤔'});
     } else if (!userCheck && !emailCheck) {
       bcrypt.hash(password, 10).then(async (hash) => {
-        await new UserMessage({_id, email, username, password: hash, createdAt}).save();
+        await new UserMessage({_id, email, username, password: hash, avatarFile,createdAt}).save();
         res.json('Registered 😍');
       });
     }

@@ -19,6 +19,7 @@ const {Meta} = Card;
 const FeedCard = ({allPosts}) => {
   let history = useHistory();
   const isAuth = useSelector(state => ({...state.isAuth}));
+  console.log(isAuth)
 
   return (
     <div className="feed-container" style={{padding: 24, minHeight: 380}}>

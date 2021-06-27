@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Upload } from 'antd';
 import { useDispatch } from 'react-redux';
 import { createPostRequest } from '../../store/redux/posts/actions';
-import FileBase from 'react-file-base64';
+import FileBase64 from 'react-file-base64';
 
 const {TextArea} = Input;
 
 const PostInput = ({allPosts}) => {
-    const [postImage, setPostImage] = useState(null);
+    const [postImage, setPostImage] = useState('');
     const dispatch = useDispatch();
     const [form] = Form.useForm();
 
@@ -39,7 +39,11 @@ const PostInput = ({allPosts}) => {
                 },
               ]}
             >
-              <FileBase name="image" type="file" multiple={false} onDone={({base64}) => setPostImage(base64)} />
+              <FileBase64
+                type="file"
+                multiple={false}
+                onDone={({base64}) => setPostImage(base64)}
+              />
             </Form.Item>
             <Form.Item shouldUpdate>
               {() => (
