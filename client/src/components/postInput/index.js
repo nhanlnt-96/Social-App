@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Upload } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { createPostRequest } from '../../store/redux/posts/actions';
 import FileBase64 from 'react-file-base64';
@@ -10,10 +10,18 @@ const PostInput = ({allPosts}) => {
     const [postImage, setPostImage] = useState('');
     const dispatch = useDispatch();
     const [form] = Form.useForm();
+    const [isBusy, setIsBusy] = useState(false);
 
     const onFinish = (values) => {
-      dispatch(createPostRequest(values, postImage));
-      form.resetFields();
+      setIsBusy(true);
+      try {
+        dispatch(createPostRequest(values, postImage));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        form.resetFields();
+        setIsBusy(false);
+      }
     };
 
     return (
@@ -54,6 +62,7 @@ const PostInput = ({allPosts}) => {
                   //   !form.isFieldsTouched(true) ||
                   //   !!form.getFieldsError().filter(({errors}) => errors.length).length
                   // }
+                  loading={isBusy}
                 >
                   Post
                 </Button>

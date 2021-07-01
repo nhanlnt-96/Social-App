@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined, EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
@@ -12,8 +12,10 @@ import ForgotPassword from '../../components/forgotPassword';
 export const LoginPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [isBusy, setIsBusy] = useState(false);
 
   const onFinish = async (values) => {
+    setIsBusy(true);
     await loginRequest(values).then((response) => {
       const {data} = response;
       if (data.error) {
@@ -23,6 +25,7 @@ export const LoginPage = () => {
         dispatch(loginSuccess(data));
         dispatch(getAuthStart());
         history.push('/');
+        setIsBusy(false);
       }
     })
   };
@@ -70,7 +73,7 @@ export const LoginPage = () => {
           <ForgotPassword />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button type="primary" htmlType="submit" className="login-form-button" loading={isBusy}>
             Log in
           </Button>
           Or <Link to="/register">Register now!</Link>

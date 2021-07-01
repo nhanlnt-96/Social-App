@@ -21,7 +21,7 @@ export function* onCreatePostRequest(action) {
     const response = yield call(getAllPosts);
     yield put(loadPostSuccess(response.data));
   } catch (error) {
-    console.log(error);
+    console.warn(error);
   }
 }
 
