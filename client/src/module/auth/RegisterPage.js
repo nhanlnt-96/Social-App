@@ -1,17 +1,38 @@
+import firebase from 'firebase';
 import React, { useState } from 'react';
 import { Button, Form, Input, message } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone, LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  LockOutlined,
+  MailOutlined,
+  UserOutlined
+} from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { registerRequest } from '../../network/services/auth';
-import FileBase64 from 'react-file-base64';
 
 export const RegisterPage = () => {
   const history = useHistory();
-  const [avatarImage, setAvatarImage] = useState('');
+  const [avatarImageURL, setAvatarImageURL] = useState('');
+  const [progressBar, setProgressBar] = useState(0);
+
+  const onAvatarHandler = (e) => {
+    const fileName = e.target.files[0];
+    const storageRef = firebase.storage().ref(`${fileName.name}`).put(fileName);
+    storageRef.on('state_changed', (snapshot) => {
+      const uploadPercent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      return setProgressBar(uploadPercent);
+    }, (error) => {
+      console.log(error);
+    }, () => {
+      setProgressBar(100);
+      storageRef.snapshot.ref.getDownloadURL().then((url) => setAvatarImageURL(url));
+    });
+  };
 
   const onFinish = async (values) => {
-    await registerRequest(values,avatarImage).then((response) => {
-      const {data} = response;
+    await registerRequest(values, avatarImageURL).then((response) => {
+      const { data } = response;
       if (data.error) {
         message.error(data.error);
       } else {
@@ -38,7 +59,8 @@ export const RegisterPage = () => {
           },
         ]}
       >
-        <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
+        <Input prefix={<MailOutlined className="site-form-item-icon" />}
+               placeholder="Email" />
       </Form.Item>
       <Form.Item
         name="username"
@@ -49,7 +71,8 @@ export const RegisterPage = () => {
           },
         ]}
       >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        <Input prefix={<UserOutlined className="site-form-item-icon" />}
+               placeholder="Username" />
       </Form.Item>
       <Form.Item
         name="password"
@@ -61,20 +84,19 @@ export const RegisterPage = () => {
         ]}
       >
         <Input.Password
-          iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+          iconRender={visible => (visible ? <EyeTwoTone /> :
+            <EyeInvisibleOutlined />)}
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
         />
       </Form.Item>
       <Form.Item
-        name="avatarFile"
+        name="avatarImageURL"
       >
-        <FileBase64
-          type="file"
-          multiple={false}
-          onDone={({base64}) => setAvatarImage(base64)}
-        />
+        <input type="file" accept="image/*" onChange={onAvatarHandler} />
+        <progress max="100" value={progressBar}></progress>
+        <img src={avatarImageURL} alt="user-avatar" />
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">

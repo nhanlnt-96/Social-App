@@ -14,7 +14,7 @@ const PostMessage = mongoose.model('Posts', mongoose.Schema({
       type: String,
       require: true
     },
-    postFile: {
+    postImageURL: {
       type: String
     },
     createdAt: {

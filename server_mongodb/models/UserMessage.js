@@ -17,7 +17,7 @@ const UserMessage = mongoose.model('Users', mongoose.Schema({
       type: String,
       require: true
     },
-    avatarFile: String,
+    avatarImageURL: String,
     createdAt: {
       type: Date,
       default: new Date()
