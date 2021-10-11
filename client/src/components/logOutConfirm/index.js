@@ -4,7 +4,7 @@ import { logOutSuccess } from '../../store/redux/auth/actions';
 import { useDispatch } from 'react-redux';
 // import { QuestionCircleOutlined } from '@ant-design/icons';
 
-const LogOutConfirm = ({username}) => {
+const LogOutConfirm = ({ username }) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
 
@@ -20,7 +20,8 @@ const LogOutConfirm = ({username}) => {
   }
   return (
     <>
-      <a className="logout-btn" onClick={() => setVisible(true)}>LOGOUT</a>
+      <a className="logout-btn"
+         onClick={() => setVisible(true)}>LOGOUT</a>
       <Modal
         title="LOGOUT"
         visible={visible}

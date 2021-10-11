@@ -9,7 +9,6 @@ import {
 import { Divider } from 'antd';
 import FeedCard from "../../components/feedCard";
 import { Avatar } from "antd";
-import AvatarImg from "../../assets/8c4ac8c19d21687f3130.png";
 
 
 import "./ProfilePage.scss";
@@ -36,7 +35,7 @@ const ProfilePage = () => {
   return (
     <div className='profile-page'>
       <div className='user-header'>
-        <Avatar size='large' src={AvatarImg} />
+        <Avatar size='large' src={userProfile.avatarImageURL} />
         <h2>{userProfile.username}</h2>
       </div>
       <Divider />

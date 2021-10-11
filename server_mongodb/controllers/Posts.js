@@ -9,9 +9,13 @@ const createPost = async (req, res) => {
   const post = req.body;
   post.username = req.user.username;
   post.UserId = req.user.id;
+  post.avatarImageURL = req.user.avatarImageURL;
   const newPost = new PostMessage({
     _id,
-    username: post.username,
+    user: {
+      username: post.username,
+      avatarImageURL: post.avatarImageURL
+    },
     postText: post.postText,
     postImageURL: post.postImageURL,
     createdAt,
@@ -21,7 +25,7 @@ const createPost = async (req, res) => {
     await newPost.save();
     res.json(post);
   } catch (error) {
-    res.json({error: {error}});
+    res.json({ error: { error } });
   }
 };
 
@@ -37,12 +41,12 @@ const getAllPost = async (req, res) => {
       }
     }
   ]);
-  const likedPosts = await LikeMessage.find({UserId: req.user.id});
+  const likedPosts = await LikeMessage.find({ UserId: req.user.id });
 
   try {
-    res.json({allPosts, likedPosts});
+    res.json({ allPosts, likedPosts });
   } catch (error) {
-    res.json({error: {error}});
+    res.json({ error: { error } });
   }
 };
 
@@ -51,7 +55,7 @@ const getPostById = async (req, res) => {
   const id = mongoose.Types.ObjectId(req.params.id);
   const postById = await PostMessage.aggregate([
     {
-      $match: {_id: id}
+      $match: { _id: id }
     },
     {
       $lookup: {
@@ -66,7 +70,7 @@ const getPostById = async (req, res) => {
   try {
     res.json(postById);
   } catch (error) {
-    res.json({error: {error}});
+    res.json({ error: { error } });
   }
 }
 
@@ -75,7 +79,7 @@ const getPostByUser = async (req, res) => {
   const id = req.params.id;
   const postByUser = await PostMessage.aggregate([
     {
-      $match: {UserId: id}
+      $match: { UserId: id }
     },
     {
       $lookup: {
@@ -90,7 +94,7 @@ const getPostByUser = async (req, res) => {
   try {
     res.json(postByUser);
   } catch (error) {
-    res.json({error: {error}});
+    res.json({ error: { error } });
   }
 };
 
@@ -98,22 +102,29 @@ const getPostByUser = async (req, res) => {
 const deletePost = async (req, res) => {
   const _id = req.params.postId;
   try {
-    await PostMessage.findOneAndDelete({_id});
+    await PostMessage.findOneAndDelete({ _id });
     res.json('Post deleted 🙁');
   } catch (error) {
-    res.json({error: {error}});
+    res.json({ error: { error } });
   }
 };
 
 //edit post
 const editPost = async (req, res) => {
-  const {newPostText, id} = req.body;
+  const { newPostText, id } = req.body;
   try {
-    await PostMessage.findOneAndUpdate({_id: id}, {postText: newPostText});
+    await PostMessage.findOneAndUpdate({ _id: id }, { postText: newPostText });
     res.json(newPostText);
   } catch (error) {
-    res.json({error: {error}});
+    res.json({ error: { error } });
   }
 };
 
-module.exports = {createPost, getAllPost, getPostById, getPostByUser, deletePost, editPost}
+module.exports = {
+  createPost,
+  getAllPost,
+  getPostById,
+  getPostByUser,
+  deletePost,
+  editPost
+}

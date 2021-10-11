@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { message } from 'antd';
 
-const baseURL = 'https://safe-inlet-00575.herokuapp.com/https://social-app-lnt.herokuapp.com/posts';
+const baseURL = 'https://social-app-lnt.herokuapp.com/posts';
 
 export const getAllPosts = async () => {
   return axios.get(baseURL, {
@@ -9,7 +9,7 @@ export const getAllPosts = async () => {
       accessToken: localStorage.getItem('accessToken')
     }
   }).then((response) => {
-    const {data} = response;
+    const { data } = response;
     if (data.error) {
       message.error('You need to Sig Up/Log In 👏');
     } else {
@@ -26,10 +26,10 @@ export const getPostByUser = async (id) => {
   return await axios.get(`${baseURL}/post-by-user/${id}`);
 };
 
-export const createPost = async (values, postImage) => {
+export const createPost = async (values, postImageURL) => {
   return await axios.post(baseURL, {
     postText: values.postContent,
-    postFile: postImage
+    postImageURL
   }, {
     headers: {
       accessToken: localStorage.getItem('accessToken')

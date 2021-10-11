@@ -1,11 +1,11 @@
 import firebase from 'firebase';
 import React, { useState } from 'react';
-import { Button, Form, Input, message } from 'antd';
+import { Button, Form, Image, Input, message, Progress } from 'antd';
 import {
   EyeInvisibleOutlined,
   EyeTwoTone,
   LockOutlined,
-  MailOutlined,
+  MailOutlined, UploadOutlined,
   UserOutlined
 } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
@@ -15,8 +15,10 @@ export const RegisterPage = () => {
   const history = useHistory();
   const [avatarImageURL, setAvatarImageURL] = useState('');
   const [progressBar, setProgressBar] = useState(0);
+  const [progressBarActive, setProgressBarActive] = useState(false);
 
   const onAvatarHandler = (e) => {
+    setProgressBarActive(true);
     const fileName = e.target.files[0];
     const storageRef = firebase.storage().ref(`${fileName.name}`).put(fileName);
     storageRef.on('state_changed', (snapshot) => {
@@ -37,6 +39,7 @@ export const RegisterPage = () => {
         message.error(data.error);
       } else {
         message.success(data);
+        setProgressBarActive(false);
         history.push('/login');
       }
     })
@@ -93,10 +96,27 @@ export const RegisterPage = () => {
       </Form.Item>
       <Form.Item
         name="avatarImageURL"
+        className="upload-item"
       >
-        <input type="file" accept="image/*" onChange={onAvatarHandler} />
-        <progress max="100" value={progressBar}></progress>
-        <img src={avatarImageURL} alt="user-avatar" />
+        <div className="upload-btn">
+          <label htmlFor="postImageURL" className="ant-btn">
+            <UploadOutlined />
+            Upload
+          </label>
+          <input type="file" id="postImageURL" accept="image/*"
+                 onChange={onAvatarHandler} />
+        </div>
+        {
+          progressBarActive && (
+            <div className="upload-progress-preview">
+              <Progress percent={progressBar} />
+              <Image
+                width={150}
+                src={avatarImageURL}
+              />
+            </div>
+          )
+        }
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">

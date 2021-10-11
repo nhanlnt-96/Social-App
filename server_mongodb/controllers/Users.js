@@ -23,7 +23,7 @@ const signUpAccount = async (req, res) => {
           email,
           username,
           password: hash,
-          avatarImageURL,
+          // avatarImageURL,
           createdAt
         }).save();
         res.json('Registered 😍');

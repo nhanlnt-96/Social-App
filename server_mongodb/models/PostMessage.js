@@ -6,9 +6,14 @@ const PostMessage = mongoose.model('Posts', mongoose.Schema({
       ref: 'Likes',
       require: true
     },
-    username: {
-      type: String,
-      require: true
+    user: {
+      username: {
+        type: String,
+        require: true
+      },
+      avatarImageURL: {
+        type: String,
+      }
     },
     postText: {
       type: String,

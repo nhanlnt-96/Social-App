@@ -1,20 +1,40 @@
+import firebase from 'firebase';
 import React, { useState } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Progress, Image } from 'antd';
 import { useDispatch } from 'react-redux';
 import { createPostRequest } from '../../store/redux/posts/actions';
+import { UploadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
 const PostInput = ({ allPosts }) => {
-    const [postImage, setPostImage] = useState('');
+    const [postImageURL, setPostImageURL] = useState('');
+    const [progressBar, setProgressBar] = useState(0);
+    const [progressBarActive, setProgressBarActive] = useState(false);
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const [isBusy, setIsBusy] = useState(false);
 
+    const onImagePostHandler = (e) => {
+      setProgressBarActive(true);
+      const fileName = e.target.files[0];
+      const storageRef = firebase.storage().ref(`${fileName.name}`).put(fileName);
+      storageRef.on('state_changed', (snapshot) => {
+        const uploadPercent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        return setProgressBar(uploadPercent);
+      }, (error) => {
+        console.log(error);
+      }, () => {
+        setProgressBar(100);
+        storageRef.snapshot.ref.getDownloadURL().then((url) => setPostImageURL(url));
+      });
+    };
+
     const onFinish = (values) => {
       setIsBusy(true);
       try {
-        dispatch(createPostRequest(values, postImage));
+        dispatch(createPostRequest(values, postImageURL));
+        setProgressBarActive(false);
       } catch (e) {
         console.warn(e);
       } finally {
@@ -47,8 +67,27 @@ const PostInput = ({ allPosts }) => {
                   required: false,
                 },
               ]}
+              className="upload-item"
             >
-
+              <div className="upload-btn">
+                <label htmlFor="postImageURL" className="ant-btn">
+                  <UploadOutlined />
+                  Upload
+                </label>
+                <input type="file" id="postImageURL" accept="image/*"
+                       onChange={onImagePostHandler} />
+              </div>
+              {
+                progressBarActive && (
+                  <div className="upload-progress-preview">
+                    <Progress percent={progressBar} />
+                    <Image
+                      width={150}
+                      src={postImageURL}
+                    />
+                  </div>
+                )
+              }
             </Form.Item>
             <Form.Item shouldUpdate>
               {() => (

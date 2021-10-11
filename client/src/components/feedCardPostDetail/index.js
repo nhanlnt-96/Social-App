@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Card, Avatar } from 'antd';
 import moment from 'moment';
 import { useHistory, useParams } from 'react-router-dom';
-import AvatarImg from '../../assets/8c4ac8c19d21687f3130.png';
 import LikeSystem from '../likeSystem';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadPostByIdStart } from '../../store/redux/posts/actions';
@@ -11,13 +10,13 @@ import { RollbackOutlined } from '@ant-design/icons';
 import EditPost from '../editPost';
 import PostUsername from '../postUsername';
 
-const {Meta} = Card;
+const { Meta } = Card;
 
 const FeedCardPostDetail = () => {
-  let {id} = useParams();
-  const state = useSelector(state => ({...state.allPostsData}));
-  const isAuth = useSelector(state => ({...state.isAuth}));
-  const {postById} = state;
+  let { id } = useParams();
+  const state = useSelector(state => ({ ...state.allPostsData }));
+  const isAuth = useSelector(state => ({ ...state.isAuth }));
+  const { postById } = state;
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -26,24 +25,28 @@ const FeedCardPostDetail = () => {
   }, [id, dispatch]);
 
   return (
-    <div style={{padding: '24px 0', minHeight: 380}}>
+    <div style={{ padding: '24px 0', minHeight: 380 }}>
       {
         postById.map((val) => (
           <Card
-            style={{width: '100%'}}
+            style={{ width: '100%' }}
             key={val._id}
-            cover={val.postFile}
+            cover={
+              val.postImageURL && <img alt={val._id} src={val.postImageURL} />
+            }
             actions={
               val.username === isAuth.userAuth.username ?
                 [
-                  <LikeSystem postId={val._id} likes={val.Likes && val.Likes.length} />,
+                  <LikeSystem postId={val._id}
+                              likes={val.Likes && val.Likes.length} />,
                   <DeleteSystem postId={val._id} />,
                   <EditPost postId={val._id} postText={val.postText} />,
                   <RollbackOutlined key="roll-back" onClick={() => {
                     history.push('/')
                   }} />
                 ] : [
-                  <LikeSystem postId={val._id} likes={val.Likes && val.Likes.length} />,
+                  <LikeSystem postId={val._id}
+                              likes={val.Likes && val.Likes.length} />,
                   <RollbackOutlined key="roll-back" onClick={() => {
                     history.push('/')
                   }} />
@@ -51,8 +54,9 @@ const FeedCardPostDetail = () => {
             }
           >
             <Meta
-              avatar={<Avatar src={AvatarImg} />}
-              title={<PostUsername username={val.username} userId={val.UserId} />}
+              avatar={<Avatar src={val.avatarImageURL} />}
+              title={<PostUsername username={val.username}
+                                   userId={val.UserId} />}
               description={`${moment(val.createdAt).format('DD/MM/YYYY - HH:mm')}: ${val.postText}`}
             />
           </Card>

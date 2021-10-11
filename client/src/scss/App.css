@@ -9,4 +9,14 @@
   min-height: 100vh !important;
 }
 
+.upload-item .upload-btn .ant-btn span {
+  margin-right: 10px;
+}
+.upload-item .upload-btn input[type=file] {
+  display: none !important;
+}
+.upload-item .upload-progress-preview {
+  margin-top: 10px;
+}
+
 /*# sourceMappingURL=App.css.map */
