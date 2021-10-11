@@ -1,21 +1,22 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const UserMessage = require('../models/UserMessage');
-const { createToken } = require('../JWT/jwt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const UserMessage = require("../models/UserMessage");
+const { createToken } = require("../JWT/jwt");
 
 //sign up
 const signUpAccount = async (req, res) => {
-  const _id = new mongoose.Types.ObjectId();
-  const { username, password, email, avatarImageURL } = req.body;
+  // const _id = new mongoose.Types.ObjectId();
+  // const { username, password, email, avatarImageURL } = req.body;
+  const { _id, username, password, email } = req.body;
   const userCheck = await UserMessage.findOne({ username });
   const emailCheck = await UserMessage.findOne({ email });
   const createdAt = new Date();
 
   try {
     if (emailCheck) {
-      res.json({ error: 'Email already exist. 🤔' });
+      res.json({ error: "Email already exist. 🤔" });
     } else if (userCheck) {
-      res.json({ error: 'Username already exist. 🤔' });
+      res.json({ error: "Username already exist. 🤔" });
     } else if (!userCheck && !emailCheck) {
       bcrypt.hash(password, 10).then(async (hash) => {
         await new UserMessage({
@@ -24,9 +25,9 @@ const signUpAccount = async (req, res) => {
           username,
           password: hash,
           // avatarImageURL,
-          createdAt
+          createdAt,
         }).save();
-        res.json('Registered 😍');
+        res.json("Registered 😍");
       });
     }
   } catch (error) {
@@ -41,11 +42,11 @@ const signInAccount = async (req, res) => {
 
   try {
     if (!userCheck) {
-      res.json({ error: 'Hmm, that username doesn\'t look right. 😳' })
+      res.json({ error: "Hmm, that username doesn't look right. 😳" });
     } else {
       bcrypt.compare(password, userCheck.password).then((match) => {
         if (!match) {
-          res.json({ error: 'Hmm, that password doesn\'t look right. 🤔' });
+          res.json({ error: "Hmm, that password doesn't look right. 🤔" });
         } else {
           const accessToken = createToken(userCheck);
           res.json({ accessToken, username });
@@ -68,7 +69,7 @@ const getAuthUser = (req, res) => {
 //user profile
 const getUserProfile = async (req, res) => {
   const id = req.params.id;
-  const profileUser = await UserMessage.findById(id).select('-password -email');
+  const profileUser = await UserMessage.findById(id).select("-password -email");
   try {
     res.json(profileUser);
   } catch (error) {
@@ -83,14 +84,17 @@ const changePassword = async (req, res) => {
 
   try {
     if (!userCheck) {
-      res.json({ error: 'Email or Username is wrong 🤔' });
+      res.json({ error: "Email or Username is wrong 🤔" });
     } else {
       bcrypt.hash(password, 10).then(async (hash) => {
-        await UserMessage.findOneAndUpdate({
-          username,
-          email
-        }, { $set: { password: hash } });
-        res.json('Password changed 😍');
+        await UserMessage.findOneAndUpdate(
+          {
+            username,
+            email,
+          },
+          { $set: { password: hash } }
+        );
+        res.json("Password changed 😍");
       });
     }
   } catch (error) {
@@ -103,5 +107,5 @@ module.exports = {
   signInAccount,
   getAuthUser,
   getUserProfile,
-  changePassword
-}
+  changePassword,
+};
