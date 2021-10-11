@@ -1,27 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const UserMessage = mongoose.model('Users', mongoose.Schema({
+const UserMessage = mongoose.model(
+  "Users",
+  mongoose.Schema({
     _id: {
-      type: mongoose.Schema.Types.ObjectId,
-      require: true
+      type: String,
+      // type: mongoose.Schema.Types.ObjectId,
+      require: true,
     },
     email: {
       type: String,
-      require: true
+      require: true,
     },
     username: {
       type: String,
-      require: true
+      require: false,
     },
     password: {
       type: String,
-      require: true
+      require: true,
     },
     // avatarImageURL: String,
     createdAt: {
       type: Date,
-      default: new Date()
-    }
+      default: new Date(),
+    },
   })
 );
 
