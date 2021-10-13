@@ -6,32 +6,32 @@ const { createToken } = require("../JWT/jwt");
 //sign up
 const signUpAccount = async (req, res) => {
   // const _id = new mongoose.Types.ObjectId();
-  // const { username, password, email, avatarImageURL } = req.body;
-  const { _id, username, password, email } = req.body;
-  const userCheck = await UserMessage.findOne({ username });
+  // const userCheck = await UserMessage.findOne({ username });
+  const { _id, fullName, password, email, avatarImageURL } = req.body;
   const emailCheck = await UserMessage.findOne({ email });
   const createdAt = new Date();
 
   try {
     if (emailCheck) {
-      res.json({ error: "Email already exist. 🤔" });
-    } else if (userCheck) {
-      res.json({ error: "Username already exist. 🤔" });
-    } else if (!userCheck && !emailCheck) {
+      res.status(400).json({ error: "Email already exist. 🤔" });
+      // } else if (userCheck) {
+      //   res.json({ error: "Username already exist. 🤔" });
+      // } else if (!userCheck && !emailCheck) {
+    } else if (!emailCheck) {
       bcrypt.hash(password, 10).then(async (hash) => {
         await new UserMessage({
           _id,
           email,
-          username,
+          fullName,
           password: hash,
-          // avatarImageURL,
+          avatarImageURL,
           createdAt,
         }).save();
-        res.json("Registered 😍");
+        res.status(201).json("Registered 😍");
       });
     }
   } catch (error) {
-    res.json({ error: { error } });
+    res.status(400).json({ error: { error } });
   }
 };
 

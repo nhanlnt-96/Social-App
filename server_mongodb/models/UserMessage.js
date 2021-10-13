@@ -12,7 +12,7 @@ const UserMessage = mongoose.model(
       type: String,
       require: true,
     },
-    username: {
+    fullName: {
       type: String,
       require: false,
     },
@@ -20,7 +20,11 @@ const UserMessage = mongoose.model(
       type: String,
       require: true,
     },
-    // avatarImageURL: String,
+    avatarImageURL: {
+      type: String,
+      require: false,
+      default: null,
+    },
     createdAt: {
       type: Date,
       default: new Date(),
