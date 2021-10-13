@@ -16,10 +16,10 @@ const UserMessage = mongoose.model(
       type: String,
       require: false,
     },
-    password: {
-      type: String,
-      require: true,
-    },
+    // password: {
+    //   type: String,
+    //   require: true,
+    // },
     avatarImageURL: {
       type: String,
       require: false,
