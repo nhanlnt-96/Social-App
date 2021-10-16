@@ -1,42 +1,41 @@
+const sendEmail = require("../configs/nodemailer");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const UserMessage = require("../models/UserMessage");
 const { createToken } = require("../JWT/jwt");
+const { verify } = require("jsonwebtoken");
 
 //sign up v.1.0
-/* const signUpAccount = async (req, res) => {
+const signUpAccount = async (req, res) => {
   const _id = new mongoose.Types.ObjectId();
-  const userCheck = await UserMessage.findOne({ username });
-  const { fullName, password, email, avatarImageURL } = req.body;
+  // const userCheck = await UserMessage.findOne({ username });
+  const { fullName, password, email } = req.body;
   const emailCheck = await UserMessage.findOne({ email });
   const createdAt = new Date();
 
   try {
     if (emailCheck) {
-      res.status(400).json({ error: "Email already exist. 🤔" });
-      } else if (userCheck) {
-        res.json({ error: "Username already exist. 🤔" });
-      } else if (!userCheck && !emailCheck) {
-    } else if (!emailCheck) {
+      res.status(400).json({ error: "Email already exist 🤔" });
+    }
+    if (!emailCheck) {
       bcrypt.hash(password, 10).then(async (hash) => {
         await new UserMessage({
           _id,
           email,
           fullName,
           password: hash,
-          avatarImageURL,
           createdAt,
         }).save();
-        res.status(201).json("Registered 😍");
+        await sendEmail(res, "confirm", _id, email, fullName);
       });
     }
   } catch (error) {
     res.status(400).json({ error: { error } });
   }
-}; */
+};
 
 //sign up v.2.0
-const signUpAccount = async (req, res) => {
+/* const signUpAccount = async (req, res) => {
   const { _id, fullName, email, avatarImageURL } = req.body;
   const emailCheck = await UserMessage.findOne({ email });
   const createdAt = new Date();
@@ -54,6 +53,26 @@ const signUpAccount = async (req, res) => {
       }).save();
       res.status(201).json("Registered 😍");
     }
+  } catch (error) {
+    res.status(400).json({ error: { error } });
+  }
+}; */
+
+const verifyUser = async (req, res) => {
+  try {
+    const { _id } = verify(req.params.token, process.env.EMAIL_TOKEN);
+    await UserMessage.findOneAndUpdate({
+      _id,
+      isVerify: false
+    }, { $set: { isVerify: true } }).then((response) => {
+      if (response) {
+        res.status(200).json("Verify successful 😍");
+      } else {
+        res.status(400).json({ error: "Your account is verified 🤔" });
+      }
+    }).catch((error) => {
+      res.status(400).json({ error: { error } });
+    });
   } catch (error) {
     res.status(400).json({ error: { error } });
   }
@@ -128,6 +147,7 @@ const changePassword = async (req, res) => {
 
 module.exports = {
   signUpAccount,
+  verifyUser,
   signInAccount,
   getAuthUser,
   getUserProfile,

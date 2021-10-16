@@ -4,8 +4,8 @@ const UserMessage = mongoose.model(
   "Users",
   mongoose.Schema({
     _id: {
-      type: String,
-      // type: mongoose.Schema.Types.ObjectId,
+      // type: String,
+      type: mongoose.Schema.Types.ObjectId,
       require: true,
     },
     email: {
@@ -16,14 +16,19 @@ const UserMessage = mongoose.model(
       type: String,
       require: false,
     },
-    // password: {
-    //   type: String,
-    //   require: true,
-    // },
+    password: {
+      type: String,
+      require: true,
+    },
     avatarImageURL: {
       type: String,
       require: false,
       default: null,
+    },
+    isVerify: {
+      type: Boolean,
+      require: true,
+      default: false,
     },
     createdAt: {
       type: Date,
