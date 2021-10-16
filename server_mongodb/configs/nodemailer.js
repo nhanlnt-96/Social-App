@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 const { View } = require('grandjs');
-const MailTemplate = View.importJsx('./template/MailVerifyTemplate.jsx');
+const MailVerifyTemplate = View.importJsx('./template/MailVerifyTemplate.jsx');
+const MailRestPasswordTemplate = View.importJsx('./template/MailResetPasswordTemplate.jsx');
 const { createEmailToken } = require("../JWT/jwt");
 
 const sendEmail = (res, type, hash, receiver, displayName) => {
@@ -14,9 +15,14 @@ const sendEmail = (res, type, hash, receiver, displayName) => {
 
   const emailToken = createEmailToken(hash);
   const verifyUrl = `${process.env.DOMAIN}/auth/verify/user/${emailToken}`;
-  let templateVerify = View.renderToHtml(MailTemplate, {
+  const resetPasswordUrl = `${process.env.DOMAIN}/auth/reset-password/user/${emailToken}`;
+  const templateVerify = View.renderToHtml(MailVerifyTemplate, {
     displayName,
     verifyUrl
+  });
+  const templateResetPassword = View.renderToHtml(MailRestPasswordTemplate, {
+    displayName,
+    resetPasswordUrl
   })
 
   // email send link
@@ -27,7 +33,7 @@ const sendEmail = (res, type, hash, receiver, displayName) => {
       type === "confirm"
         ? "Verify your email for Tech Social"
         : "Reset your password for Tech Social",
-    html: templateVerify,
+    html: type === "confirm" ? templateVerify : templateResetPassword,
     attachments: {
       filename: 'logo.png',
       path: `${__dirname}/template/imgs/logo.png`,
