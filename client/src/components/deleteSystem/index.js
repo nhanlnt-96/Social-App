@@ -12,15 +12,18 @@ const DeleteSystem = ({ data }) => {
 
   const onDeleteBtnClick = () => {
     dispatch(deletePostRequest(data._id));
-    const storageRef = firebase.storage().ref();
-    const deleteRef = storageRef.root.parent.child(data.postImageURL);
-    deleteRef.delete().then(() => {
-      console.log('Deleted')
-    }).catch((e) => {
-      console.log(e);
+    if(data.postImageURL) {
+      const storageRef = firebase.storage().ref();
+      const deleteRef = storageRef.root.parent.child(data.postImageURL);
+      deleteRef.delete().then(() => {
+        console.log('Deleted')
+      }).catch((e) => {
+        console.log(e);
+      });
+    }
+    message.success('Post is deleted', 1.5).then(() => {
+      history.push('/');
     });
-    message.success('Post is deleted ');
-    history.push('/');
   }
 
   return (

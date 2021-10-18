@@ -23,9 +23,10 @@ const FeedCardPostDetail = () => {
   useEffect(() => {
     dispatch(loadPostByIdStart(id));
   }, [id, dispatch]);
+  console.log(state)
 
   return (
-    <div style={{ padding: '24px 0', minHeight: 380 }}>
+    <div style={{ padding: '24px 0' }}>
       {
         postById.map((val) => (
           <Card
@@ -35,7 +36,7 @@ const FeedCardPostDetail = () => {
               val.postImageURL && <img alt={val._id} src={val.postImageURL} />
             }
             actions={
-              val.username === isAuth.userAuth.username ?
+              val.user.username === isAuth.userAuth.username ?
                 [
                   <LikeSystem postId={val._id}
                               likes={val.Likes && val.Likes.length} />,
@@ -54,10 +55,11 @@ const FeedCardPostDetail = () => {
             }
           >
             <Meta
-              avatar={<Avatar src={val.avatarImageURL} />}
-              title={<PostUsername username={val.username}
+              avatar={<Avatar src={val.user.avatarImageURL} />}
+              title={<PostUsername username={val.user.username}
                                    userId={val.UserId} />}
-              description={`${moment(val.createdAt).format('DD/MM/YYYY - HH:mm')}: ${val.postText}`}
+              description={`${moment(val.createdAt).format('DD/MM/YYYY -' +
+                ' HH:mm')}: ${val.postText ? val.postText : ''}`}
             />
           </Card>
         ))

@@ -16,9 +16,8 @@ const { Meta } = Card;
 const FeedCard = ({ allPosts }) => {
   let history = useHistory();
   const isAuth = useSelector(state => ({ ...state.isAuth }));
-
   return (
-    <div className="feed-container" style={{ padding: 24, minHeight: 380 }}>
+    <div className="feed-container" style={{ padding: 24 }}>
       {
         (allPosts && allPosts.length > 0) ? allPosts.sort((x, y) => new Date(y.createdAt).getTime() - new Date(x.createdAt).getTime())
           .map((val, index) => {
@@ -27,7 +26,8 @@ const FeedCard = ({ allPosts }) => {
                 style={{ width: 400 }}
                 key={index}
                 cover={
-                  val.postImageURL && <img alt={val._id} src={val.postImageURL} />
+                  val.postImageURL &&
+                  <img alt={val._id} src={val.postImageURL} />
                 }
                 actions={
                   val.user.username === isAuth.userAuth.username ?
@@ -52,7 +52,8 @@ const FeedCard = ({ allPosts }) => {
                   avatar={<Avatar src={val.user.avatarImageURL} />}
                   title={<PostUsername username={val.user.username}
                                        userId={val.UserId} />}
-                  description={`${moment(val.createdAt).format('DD/MM/YYYY - HH:mm')}: ${val.postText}`}
+                  description={`${moment(val.createdAt).format('DD/MM/YYYY -' +
+                    ' HH:mm')}: ${val.postText ? val.postText : ''}`}
                 />
               </Card>
             )

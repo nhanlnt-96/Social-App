@@ -20,7 +20,7 @@ const PostInput = ({ allPosts }) => {
       const fileName = e.target.files[0];
       const storageRef = firebase.storage().ref(`${fileName.name}`).put(fileName);
       storageRef.on('state_changed', (snapshot) => {
-        const uploadPercent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const uploadPercent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         return setProgressBar(uploadPercent);
       }, (error) => {
         console.log(error);

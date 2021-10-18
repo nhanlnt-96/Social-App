@@ -16,6 +16,7 @@ export const RegisterPage = () => {
   const [avatarImageURL, setAvatarImageURL] = useState('');
   const [progressBar, setProgressBar] = useState(0);
   const [progressBarActive, setProgressBarActive] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onAvatarHandler = (e) => {
     setProgressBarActive(true);
@@ -31,17 +32,19 @@ export const RegisterPage = () => {
       storageRef.snapshot.ref.getDownloadURL().then((url) => setAvatarImageURL(url));
     });
   };
-
   const onFinish = async (values) => {
+    setLoading(true);
     await registerRequest(values, avatarImageURL).then((response) => {
       const { data } = response;
-      if (data.error) {
-        message.error(data.error);
-      } else {
-        message.success(data);
+      message.success(data, 1.5).then(() => {
         setProgressBarActive(false);
+        setLoading(false);
         history.push('/login');
-      }
+      })
+    }).catch((error) => {
+      message.error(error.response.data.error, 1.5).then(() => {
+        setLoading(false);
+      });
     })
   };
 
@@ -119,7 +122,9 @@ export const RegisterPage = () => {
         }
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button type="primary" htmlType="submit"
+                className="login-form-button"
+                loading={loading}>
           Sign up
         </Button>
         Or <Link to="/login">Login now!</Link>
