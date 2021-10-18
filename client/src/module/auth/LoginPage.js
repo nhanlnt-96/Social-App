@@ -31,7 +31,7 @@ export const LoginPage = () => {
         localStorage.setItem('accessToken', data.accessToken);
         dispatch(loginSuccess(data));
         dispatch(getAuthStart());
-        message.success('Logged in ð', 1.5).then(() => {
+        message.success('Logged in', 1.5).then(() => {
           history.push('/');
           setIsBusy(false);
         })

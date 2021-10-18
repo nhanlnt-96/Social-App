@@ -78,7 +78,7 @@ const PostInput = ({ allPosts }) => {
               <div className="upload-btn">
                 <label htmlFor="postImageURL" className="ant-btn">
                   <UploadOutlined />
-                  Upload
+                  Upload image
                 </label>
                 <input type="file" id="postImageURL" accept="image/*"
                        onChange={onImagePostHandler} />

@@ -104,7 +104,7 @@ export const RegisterPage = () => {
         <div className="upload-btn">
           <label htmlFor="postImageURL" className="ant-btn">
             <UploadOutlined />
-            Upload
+            Upload avatar
           </label>
           <input type="file" id="postImageURL" accept="image/*"
                  onChange={onAvatarHandler} />
