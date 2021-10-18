@@ -3,21 +3,22 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-const { View } = require("grandjs")
+const { View } = require("grandjs");
 
-View.settings.set("views", "./configs")
+View.settings.set("views", "./configs");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const corsOptions = {
-  origin: "http://localhost:3000",
-  optionSuccessStatus: 200,
-};
+// const corsOptions = {
+//   origin: "http://localhost:3000",
+//   optionSuccessStatus: 200,
+// };
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json());
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello, welcome to Social-App-Api");
