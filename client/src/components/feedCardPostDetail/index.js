@@ -23,7 +23,6 @@ const FeedCardPostDetail = () => {
   useEffect(() => {
     dispatch(loadPostByIdStart(id));
   }, [id, dispatch]);
-  console.log(state)
 
   return (
     <div style={{ padding: '24px 0' }}>
@@ -40,7 +39,7 @@ const FeedCardPostDetail = () => {
                 [
                   <LikeSystem postId={val._id}
                               likes={val.Likes && val.Likes.length} />,
-                  <DeleteSystem postId={val._id} />,
+                  <DeleteSystem data={val} />,
                   <EditPost postId={val._id} postText={val.postText} />,
                   <RollbackOutlined key="roll-back" onClick={() => {
                     history.push('/')

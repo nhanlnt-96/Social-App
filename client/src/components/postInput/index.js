@@ -31,7 +31,6 @@ const PostInput = ({ allPosts }) => {
     };
 
     const onFinish = (values) => {
-      console.log(values)
       if (values.postContent || postImageURL) {
         setIsBusy(true);
         try {

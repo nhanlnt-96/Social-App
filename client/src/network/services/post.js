@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { message } from 'antd';
 
-const baseURL = 'https://social-app-lnt.herokuapp.com/posts';
+// const baseURL = 'https://social-app-lnt.herokuapp.com/posts';
+const baseURL = 'http://localhost:3001/posts';
 
 export const getAllPosts = async () => {
   return axios.get(baseURL, {

@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
-const PostMessage = require('../models/PostMessage');
-const LikeMessage = require('../models/LikeMessage');
+const mongoose = require("mongoose");
+const PostMessage = require("../models/PostMessage");
+const LikeMessage = require("../models/LikeMessage");
+const CommentMessage = require("../models/CommentMessage");
 
 //create post
 const createPost = async (req, res) => {
@@ -14,12 +15,12 @@ const createPost = async (req, res) => {
     _id,
     user: {
       username: post.username,
-      avatarImageURL: post.avatarImageURL
+      avatarImageURL: post.avatarImageURL,
     },
     postText: post.postText,
     postImageURL: post.postImageURL,
     createdAt,
-    UserId: post.UserId
+    UserId: post.UserId,
   });
   try {
     await newPost.save();
@@ -34,12 +35,12 @@ const getAllPost = async (req, res) => {
   const allPosts = await PostMessage.aggregate([
     {
       $lookup: {
-        from: 'likes',
-        localField: '_id',
-        foreignField: 'PostId',
-        as: 'Likes'
-      }
-    }
+        from: "likes",
+        localField: "_id",
+        foreignField: "PostId",
+        as: "Likes",
+      },
+    },
   ]);
   const likedPosts = await LikeMessage.find({ UserId: req.user.id });
 
@@ -55,16 +56,16 @@ const getPostById = async (req, res) => {
   const id = mongoose.Types.ObjectId(req.params.id);
   const postById = await PostMessage.aggregate([
     {
-      $match: { _id: id }
+      $match: { _id: id },
     },
     {
       $lookup: {
-        from: 'likes',
-        localField: '_id',
-        foreignField: 'PostId',
-        as: 'Likes'
-      }
-    }
+        from: "likes",
+        localField: "_id",
+        foreignField: "PostId",
+        as: "Likes",
+      },
+    },
   ]);
 
   try {
@@ -72,23 +73,23 @@ const getPostById = async (req, res) => {
   } catch (error) {
     res.json({ error: { error } });
   }
-}
+};
 
 //get post by user
 const getPostByUser = async (req, res) => {
   const id = req.params.id;
   const postByUser = await PostMessage.aggregate([
     {
-      $match: { UserId: id }
+      $match: { UserId: id },
     },
     {
       $lookup: {
-        from: 'likes',
-        localField: '_id',
-        foreignField: 'PostId',
-        as: 'Likes'
-      }
-    }
+        from: "likes",
+        localField: "_id",
+        foreignField: "PostId",
+        as: "Likes",
+      },
+    },
   ]);
 
   try {
@@ -102,8 +103,11 @@ const getPostByUser = async (req, res) => {
 const deletePost = async (req, res) => {
   const _id = req.params.postId;
   try {
-    await PostMessage.findOneAndDelete({ _id });
-    res.json('Post deleted 🙁');
+    await PostMessage.findOneAndDelete({ _id }).then(async () => {
+      await CommentMessage.findOneAndDelete({ PostId: _id });
+      await LikeMessage.findOneAndDelete({ PostId: _id });
+    });
+    res.json("Post deleted 🙁");
   } catch (error) {
     res.json({ error: { error } });
   }
@@ -126,5 +130,5 @@ module.exports = {
   getPostById,
   getPostByUser,
   deletePost,
-  editPost
-}
+  editPost,
+};
