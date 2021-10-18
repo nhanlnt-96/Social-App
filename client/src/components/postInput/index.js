@@ -1,6 +1,6 @@
 import firebase from 'firebase';
-import React, { useState } from 'react';
-import { Form, Input, Button, Progress, Image } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Form, Input, Button, Progress, Image, message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { createPostRequest } from '../../store/redux/posts/actions';
 import { UploadOutlined } from '@ant-design/icons';
@@ -31,15 +31,22 @@ const PostInput = ({ allPosts }) => {
     };
 
     const onFinish = (values) => {
-      setIsBusy(true);
-      try {
-        dispatch(createPostRequest(values, postImageURL));
-        setProgressBarActive(false);
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        form.resetFields();
-        setIsBusy(false);
+      console.log(values)
+      if (values.postContent || postImageURL) {
+        setIsBusy(true);
+        try {
+          dispatch(createPostRequest(values, postImageURL));
+          setProgressBarActive(false);
+        } catch (e) {
+          console.warn(e);
+        } finally {
+          setPostImageURL('');
+          form.resetFields();
+          setIsBusy(false);
+        }
+      }
+      if (!values.postContent && !values.postImageURL) {
+        message.error('Please input your post content!')
       }
     };
 
@@ -94,10 +101,6 @@ const PostInput = ({ allPosts }) => {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  // disabled={
-                  //   !form.isFieldsTouched(true) ||
-                  //   !!form.getFieldsError().filter(({errors}) => errors.length).length
-                  // }
                   loading={isBusy}
                 >
                   Post

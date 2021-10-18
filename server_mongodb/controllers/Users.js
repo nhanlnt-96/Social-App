@@ -73,6 +73,7 @@ const verifyRequest = async (req, res) => {
   }
 }; */
 
+// verify updating in v2
 const verifyUser = async (req, res) => {
   try {
     const { _id } = verify(req.params.token, process.env.EMAIL_TOKEN);

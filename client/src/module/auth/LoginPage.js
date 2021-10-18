@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
-import { UserOutlined, LockOutlined, EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
+import {
+  UserOutlined,
+  LockOutlined,
+  EyeTwoTone,
+  EyeInvisibleOutlined
+} from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginRequest } from '../../network/services/auth';
@@ -17,15 +22,19 @@ export const LoginPage = () => {
   const onFinish = async (values) => {
     setIsBusy(true);
     await loginRequest(values).then((response) => {
-      const {data} = response;
+      const { data } = response;
       if (data.error) {
-        message.error(data.error);
+        message.error(data.error, 1.5).then(() => {
+          setIsBusy(false);
+        });
       } else {
         localStorage.setItem('accessToken', data.accessToken);
         dispatch(loginSuccess(data));
         dispatch(getAuthStart());
-        history.push('/');
-        setIsBusy(false);
+        message.success('Logged in ð', 1.5).then(() => {
+          history.push('/');
+          setIsBusy(false);
+        })
       }
     })
   };
@@ -50,7 +59,8 @@ export const LoginPage = () => {
             },
           ]}
         >
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+          <Input prefix={<UserOutlined className="site-form-item-icon" />}
+                 placeholder="Username" />
         </Form.Item>
         <Form.Item
           name="password"
@@ -63,7 +73,8 @@ export const LoginPage = () => {
           className="margin-bottom-pass"
         >
           <Input.Password
-            iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+            iconRender={visible => (visible ? <EyeTwoTone /> :
+              <EyeInvisibleOutlined />)}
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"
@@ -73,7 +84,8 @@ export const LoginPage = () => {
           <ForgotPassword />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button" loading={isBusy}>
+          <Button type="primary" htmlType="submit" className="login-form-button"
+                  loading={isBusy}>
             Log in
           </Button>
           Or <Link to="/register">Register now!</Link>

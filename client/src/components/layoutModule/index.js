@@ -10,11 +10,11 @@ const { Content } = Layout;
 
 const LayoutModule = () => {
   const token = localStorage.getItem('accessToken');
-  // const state = useSelector(state => ({ ...state.isAuth }));
+  const state = useSelector(state => ({ ...state.isAuth }));
 
-  const renderComponent = (module, isPrivate, token) => () => {
+  const renderComponent = (module, isPrivate, token, isLogged) => () => {
     if (isPrivate) {
-      return (token) ? module : <Redirect to="/login" />
+      return (token || isLogged) ? module : <Redirect to="/login" />
     }
     return module;
   }
@@ -28,7 +28,7 @@ const LayoutModule = () => {
             const { path, isExact, module, isPrivate } = val;
             return (
               <Route key={index} path={path} exact={isExact}>
-                {renderComponent(module, isPrivate, token)}
+                {renderComponent(module, isPrivate, token, state.isLogged)}
               </Route>
             )
           })
