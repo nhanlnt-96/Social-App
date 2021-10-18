@@ -91,8 +91,7 @@ const MailVerifyTemplate = ({ displayName, verifyUrl }) => {
             font-size: 18px;
           "
           >
-            Click the link below to confirm your email and finish creating your
-            Tech Social account.
+            Please confirm that you want to use this as your Tech Social account email address.
           </p>
           <p
             style="

@@ -12,9 +12,13 @@ const UserMessage = mongoose.model(
       type: String,
       require: true,
     },
-    fullName: {
+    // fullName: {
+    //   type: String,
+    //   require: false,
+    // },
+    username: {
       type: String,
-      require: false,
+      require: true,
     },
     password: {
       type: String,
@@ -25,11 +29,11 @@ const UserMessage = mongoose.model(
       require: false,
       default: null,
     },
-    isVerify: {
-      type: Boolean,
-      require: true,
-      default: false,
-    },
+    // isVerify: {
+    //   type: Boolean,
+    //   require: true,
+    //   default: false,
+    // },
     createdAt: {
       type: Date,
       default: new Date(),

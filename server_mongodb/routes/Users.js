@@ -7,6 +7,7 @@ const {
   getUserProfile,
   changePassword,
   verifyUser,
+  verifyRequest,
 } = require("../controllers/Users");
 
 const router = express.Router();
@@ -15,6 +16,7 @@ const router = express.Router();
 router.post("/", signUpAccount);
 
 //verify user
+router.post("/verify/request", verifyRequest);
 router.get("/verify/user/:token", verifyUser);
 
 //login

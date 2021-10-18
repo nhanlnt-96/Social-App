@@ -1,7 +1,9 @@
 const nodemailer = require("nodemailer");
-const { View } = require('grandjs');
-const MailVerifyTemplate = View.importJsx('./template/MailVerifyTemplate.jsx');
-const MailRestPasswordTemplate = View.importJsx('./template/MailResetPasswordTemplate.jsx');
+const { View } = require("grandjs");
+const MailVerifyTemplate = View.importJsx("./template/MailVerifyTemplate.jsx");
+const MailRestPasswordTemplate = View.importJsx(
+  "./template/MailResetPasswordTemplate.jsx"
+);
 const { createEmailToken } = require("../JWT/jwt");
 
 const sendEmail = (res, type, hash, receiver, displayName) => {
@@ -18,12 +20,12 @@ const sendEmail = (res, type, hash, receiver, displayName) => {
   const resetPasswordUrl = `${process.env.DOMAIN}/auth/reset-password/user/${emailToken}`;
   const templateVerify = View.renderToHtml(MailVerifyTemplate, {
     displayName,
-    verifyUrl
+    verifyUrl,
   });
   const templateResetPassword = View.renderToHtml(MailRestPasswordTemplate, {
     displayName,
-    resetPasswordUrl
-  })
+    resetPasswordUrl,
+  });
 
   // email send link
   const mailOptions = {
@@ -35,17 +37,21 @@ const sendEmail = (res, type, hash, receiver, displayName) => {
         : "Reset your password for Tech Social",
     html: type === "confirm" ? templateVerify : templateResetPassword,
     attachments: {
-      filename: 'logo.png',
+      filename: "logo.png",
       path: `${__dirname}/template/imgs/logo.png`,
-      cid: 'tech-social-logo'
-    }
+      cid: "tech-social-logo",
+    },
   };
 
   transporter.sendMail(mailOptions, (error) => {
     if (error) {
       res.status(400).json({ error });
     } else {
-      res.status(201).json(`Click the link we sent to ${receiver} to complete your account set-up.`);
+      res
+        .status(200)
+        .json(
+          `Click the link we sent to ${receiver} to verify your account.`
+        );
     }
   });
 };
